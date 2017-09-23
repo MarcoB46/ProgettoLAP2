@@ -1,89 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput,Button} from 'react-native';
-import firebase from './src/firebase';
-import {TabNavigator} from 'react-navigation';
-import Login from './src/login';
-import Chat from './src/chat';
+import {Provider} from 'react-redux';
+import {TabNavigator, StackNavigator} from 'react-navigation';
+import store from './src/Store/store';
+import SignIn from './src/Containers/signInContainer';
+import LogIn from './src/Containers/loginContainer';
+import UserProfileInit from './src/Containers/userProfileInitContainer';
 
 
+// const MainTabScreen = TabNavigator({
+  
+//   })
 
-const TabScreen = TabNavigator({
-  Login:{screen:Login},
-  Chat:{screen:Chat}
-},{
-  tabBarOptions:{
-    style:{backgroundColor:'#004D40'},
-    indicatorStyle:{ backgroundColor: '#00BFA5'},
-    activeTintColor:'#E3F2FD',
-    inactiveTintColor:'#9FA8DA',
-    activeBackgroundColor :'#2196f3',
-    inactiveBackgroundColor :'#3F51B5',
-  }
+const MainStack = StackNavigator({
+  SignIn:{
+    screen: SignIn,
+    navigationOptions: ({navigation})=>({
+      title:'Registrati !', 
+      header:null  
+    })
+  },
+  LogIn:{
+    screen: LogIn,
+    navigationOptions: ({navigation})=>({
+      title:'Accedi:', 
+      header:null  
+    }),
+  },
+  UserProfileInit:{
+    screen: UserProfileInit,
+    navigationOptions:({navigation})=>({
+      header:null,
+      headerLeft: null,
+    })
+  },
+  // MainTabScreen:{
+  //   screen: MainTabScreen,
+  //   navigationOptions:({navigate})=>({
+  //     header:null,
+  //   })
+  // },
 })
 
-
-
-
-export default class App extends React.Component {
-  render() {
+export default class App extends React.Component{
+  render(){
     return (
-     <TabScreen/>
-    );
-  }
-
-  onPressHandlerLogin=()=>{
-    //qualcosa , per ora faccio senza login 
-    console.log('premuto');
-    firebase.auth().signInWithEmailAndPassword(this.state.mail, this.state.psw)
-      .then((user)=>{
-        console.log('successfully logged in ::' , user);
-      })
-      .catch((error)=>{
-        console.log('errore login :: ', error);
-      })
-  }
-
-  onPressHandlerLogout=()=>{
-    firebase.auth().signOut()
-      .then(()=>{
-        console.log('signOut successfull');
-      })
-      .catch((error)=>{
-        console.log('errore logout :: ', error);
-      })
-  }
-
-  onPressHandlerSubscribe = () =>{
-    firebase.messaging().subscribeToTopic('main');
-  }
-
-  onPressHandlerUnsubscribe = ()=>{
-    firebase.messaging().unsubscribeFromTopic('main');
-  }
-
-  onPressHandlerGetToken= ()=>{
-    firebase.messaging().getToken()
-      .then((token)=>{
-        console.log('token :: ', token);
-      })
-
-  }
-
-  onPressHandlerSend=()=>{
-    firebase.database()
-      .ref('/users/messages')
-      .push({author:firebase.auth().currentUser.email, text:this.state.message}, ()=>{
-        this.setState({message:''})
-      })
+      <Provider store={store}>
+        <MainStack/>
+      </Provider>
+    )
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
