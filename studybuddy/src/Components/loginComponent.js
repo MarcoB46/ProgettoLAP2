@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View, Button } from 'react-native';
+import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { FormLabel, FormInput , Button, Icon, Text, Card,SocialIcon} from 'react-native-elements';
 
 export default class componentName extends Component {
   constructor(props){
     super(props);
+    this.state={
+      mail:'',
+      password:''
+    }
     this.resetNavigation=this.resetNavigation.bind(this);
   }
 
@@ -20,14 +25,73 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <View>
-        
-        <Button
-          title='vai a modificare il tuo profilo'
-          onPress= {()=>{
-            this.resetNavigation('UserProfileInit');
-          }}
-        ></Button>
+      <View  style={{justifyContent:'center', flex:1, justifyContent: 'space-around', backgroundColor:'#1A237E'}}>
+
+        <Card>
+          <View style={{flexDirection:'row' }}>
+            <Icon
+              containerStyle={{alignSelf:'flex-end'}}
+              name='envelope'
+              type='font-awesome'
+              color='#2196F3'
+              onPress={() => alert('inserisci la tua mail !')}
+              underlayColor='#3F51B5ff'
+              reverse
+              />
+              <View>
+                <FormLabel>Mail</FormLabel>
+                <FormInput 
+                  //containerStyle={{ width:'68%'}}
+                  onChangeText={(text)=>{
+                    this.setState({
+                      mail:text
+                    })
+                  }}
+                  inputStyle={{color:'#03A9F4'}}
+                />
+              </View>
+          </View>
+
+          <View style={{flexDirection:'row'}}>
+            <Icon
+              containerStyle={{alignSelf:'flex-end'}}
+              name='unlock-alt'
+              type='font-awesome'
+              color='#2196F3'
+              onPress={() => alert('la password deve essere lunga almeno 6 caratteri')}
+              underlayColor='#3F51B5ff'
+              reverse
+              />
+              <View>
+                <FormLabel>Password</FormLabel>
+                <FormInput 
+                  //containerStyle={{marginRight:50, width:'68%'}}
+                  onChangeText={(text)=>{
+                    this.setState({
+                      password:text
+                    })
+                  }}
+                  inputStyle={{color:'#03A9F4'}}
+                />
+              </View>
+            </View>
+            <Button
+            title='Accedi'
+            backgroundColor='#03A9F4'
+            onPress= {()=>{
+              var user ={mail:this.state.mail,password: this.state.password}
+              this.props.attemptLogIn(user, this.resetNavigation)
+            }}
+            containerViewStyle={{marginTop:'5%', borderRadius:30}}
+            borderRadius={30}
+          ></Button>
+          {/* <SocialIcon
+            title='Sign In With Facebook'
+            button
+            type='facebook'
+          />*/}
+        </Card> 
+
       </View>
     )
   }

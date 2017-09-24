@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, Image } from 'react-native'
-import { FormLabel, FormInput , Button,Card, ListItem, Avatar} from 'react-native-elements';
+import { Text, View, Image , ScrollView, Picker} from 'react-native'
+import { FormLabel, FormInput , Button,Card, ListItem, Avatar, Text as CustomText } from 'react-native-elements';
+import firebase from '../Common/firebase';
+import { NavigationActions } from 'react-navigation';
 
 export default class UserProfileInitComponent extends Component {
   constructor(props){
@@ -9,38 +11,34 @@ export default class UserProfileInitComponent extends Component {
       debugText:'',
       refText:null,
     }
+    this.resetNavigation=this.resetNavigation.bind(this);
   }
-   users = [
-    {
-       name: 'brynn',
-       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-   // more users here
-   ];
+
+  resetNavigation= (targetRoute) => {
+    const resetAction = NavigationActions.reset({
+      index: 0, 
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   render() {
     
     return (
-      <View>
-
-<Card title="CARD WITH DIVIDER">
-  {
-    this.users.map((u, i) => {
-      return (
-        <View key={i} >
-          <Avatar
-            source={{uri:u.avatar}}
-            xlarge
-            rounded
-          />
-          <Text>{u.name}</Text>
-        </View>
-      );
-    })
-  }
-</Card>
-
+      <View style={{justifyContent: 'space-around', flex:1}}>
+        <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
+        <Avatar
+          xlarge
+          rounded
+          title="MB"
+          onPress={() => console.log("Works!")}
+          activeOpacity={0.7}
+          containerStyle={{alignSelf:'center'}}
+        />
         <View>
-          <FormLabel>Campo1</FormLabel>
+          <FormLabel>Username</FormLabel>
           <FormInput
             onChangeText={(text)=>{
               this.setState({
@@ -48,17 +46,101 @@ export default class UserProfileInitComponent extends Component {
               })
             }}
           />
-          <Button
+          <FormLabel>Seleziona il tuo corso di laurea</FormLabel>
+          <Picker
+            onValueChange={(itemValue, itemIndex)=>{
+              this.setState({
+                debugText:itemValue
+              })
+            }}
+            style={{backgroundColor:'#81D4FA', marginHorizontal:'4%', borderRadius:30}}
+          >
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+            <Picker.Item label='prova1' value='prova1'/>
+          </Picker>
+          
+         
+        </View>
+        <Button
             large
             raised 
             backgroundColor='#FF9800'
             icon={{name: 'user-circle', type: 'font-awesome'}}
             onPress={()=>{
-              alert('premuto')
+              firebase.auth().signOut()
+              .then(() => {
+                console.log('User signed out successfully');
+                this.resetNavigation('SignIn');
+              })
+              .catch((error)=>{console.log(error)});
             }}
-            title='LARGE WITH RIGHT ICON' />
-        </View>
- 
+            title='logout' />
       </View>
     )
   }

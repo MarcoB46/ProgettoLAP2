@@ -2,7 +2,7 @@ import * as actionType from '../Common/actionTypes';
 
 const initialState = {
     user:{
-        username:'',
+        userName:'',
         mail:'',
         photoURL:'',
         id:'',
@@ -19,6 +19,12 @@ const usrReducer = (state=initialState, action)=>{
         
         case actionType.STOP_LOADING:
             return Object.assign({}, state, {isLoading:false});
+        
+        case actionType.USER_LOGGED:
+            return Object.assign({}, state, {user:action.payload});
+        
+        case actionType.NO_USER:
+            return Object.assign({}, state, {user:{  }});
         
     
         default:

@@ -6,6 +6,10 @@ import { FormLabel, FormInput , Button, Icon, Text, Card,SocialIcon} from 'react
 export default class signInComponent extends Component {
   constructor(props){
     super(props);
+    this.state={
+      mail:'',
+      password:''
+    }
     this.resetNavigation=this.resetNavigation.bind(this);
   }
 
@@ -19,6 +23,9 @@ export default class signInComponent extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
+  componentWillMount = () => {
+    this.props.checkLogIn(this.resetNavigation) //momentaneo
+  }
 
   render() {
     return (
@@ -76,7 +83,7 @@ export default class signInComponent extends Component {
                   //containerStyle={{marginRight:50, width:'68%'}}
                   onChangeText={(text)=>{
                     this.setState({
-                      mail:text
+                      password:text
                     })
                   }}
                   inputStyle={{color:'#03A9F4'}}
@@ -87,24 +94,25 @@ export default class signInComponent extends Component {
             title='Registrati'
             backgroundColor='#03A9F4'
             onPress= {()=>{
-              this.resetNavigation('UserProfileInit');
+              var user ={mail:this.state.mail,password: this.state.password}
+              this.props.signIn(user, this.resetNavigation)
             }}
             containerViewStyle={{marginTop:'5%', borderRadius:30}}
             borderRadius={30}
           ></Button>
-          <SocialIcon
+          {/* <SocialIcon
             title='Sign In With Facebook'
             button
             type='facebook'
-          />
-        </Card>
+          />*/}
+        </Card> 
 
         <Button
-        containerViewStyle={{marginBottom:'5%'}}
+          containerViewStyle={{marginBottom:'5%'}}
           title='Hai già un account? Accedi!'
           backgroundColor='#03A9F4'
           onPress= {()=>{
-            this.resetNavigation('LogIn');
+            this.props.navigation.navigate('LogIn');
           }}
         ></Button>
       </View>
