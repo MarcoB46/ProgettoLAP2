@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
-import { FormLabel, FormInput , Button,Card, ListItem} from 'react-native-elements';
+import { FormLabel, FormInput , Button,Card, ListItem, Avatar} from 'react-native-elements';
 
 export default class UserProfileInitComponent extends Component {
   constructor(props){
@@ -27,10 +27,10 @@ export default class UserProfileInitComponent extends Component {
     this.users.map((u, i) => {
       return (
         <View key={i} >
-          <Image
-            style={{width:200,height:200}}
-            resizeMode="cover"
-            source={{ uri: u.avatar }}
+          <Avatar
+            source={{uri:u.avatar}}
+            xlarge
+            rounded
           />
           <Text>{u.name}</Text>
         </View>
