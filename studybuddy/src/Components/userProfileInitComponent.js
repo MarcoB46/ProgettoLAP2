@@ -32,10 +32,10 @@ export default class UserProfileInitComponent extends Component {
         <Avatar
           xlarge
           rounded
-          title="MB"
+          icon={{name: 'camera', type: 'font-awesome'}}
           onPress={() => console.log("Works!")}
           activeOpacity={0.7}
-          containerStyle={{alignSelf:'center'}}
+          containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
         />
         <View>
           <FormLabel>Username</FormLabel>
@@ -55,74 +55,7 @@ export default class UserProfileInitComponent extends Component {
             }}
             style={{backgroundColor:'#81D4FA', marginHorizontal:'4%', borderRadius:30}}
           >
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
-            <Picker.Item label='prova1' value='prova1'/>
+            
           </Picker>
           
          

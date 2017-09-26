@@ -16,6 +16,8 @@ import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
+import com.imagepicker.ImagePickerPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNFirebaseRemoteConfigPackage(),
           new RNFirebaseDatabasePackage(),
           new RNFirebaseMessagingPackage(),
-          new RNFirebaseStoragePackage()
+          new RNFirebaseStoragePackage(),
+          new ImagePickerPackage()
       );
     }
   };
