@@ -1,5 +1,6 @@
 import firebase from '../Common/firebase';
-import * as actionTypes from '../Common/actionTypes'
+import * as actionTypes from '../Common/actionTypes';
+var ImagePicker = require('react-native-image-picker');
 
 export const checkLogIn = (callback)=>{
     return (dispatch)=>{
@@ -76,3 +77,55 @@ export const attemptLogIn = (user, callback)=>{
     }
 }
 
+const updateProfilePhoto = (param) =>{
+    return(dispatch)=>{
+        firebase.storage()
+        .ref(`/files/users/${param.uid}/profileImage`)
+        .putFile(param.source)
+            .then( (uploadedFile)=>{
+                firebase.auth().currentUser
+                .updateProfile({
+                    photoURL:uploadedFile.downloadUrl
+                }).then(()=>{
+                    dispatch({type:actionTypes.UPDATE_PROFILE, param:{photoURL:uploadedFile.downloadUrl}})
+                })
+            } )
+            .catch( (error)=>{
+                console.log('errore da updateprofilephoto :: ', error);
+            } );
+    }
+}
+
+export const takePhoto =(param)=>{
+    return (dispatch, getState)=>{
+        const {usrReducer} = getState();
+
+        var options = {
+            title:'Seleziona il tuo avatar',
+            takePhotoButtonTitle:'Scatta una foto',
+            chooseFromLibraryButtonTitle:'Seleziona dalla galleria',
+            quality:1,
+            rotation:0,
+            noData:true,
+            storageOptions: {
+                cameraRoll:true
+              }
+        }
+
+        ImagePicker.showImagePicker(options, (response)=>{
+            if(response.didCancel){
+                //utente ha cancellato la selezione, non fare niente
+                console.log('selezione cancellata');
+            }else if(response.error){
+                console.log('errore da updateprofileavatar:: ', error);
+                alert('errore da imagePicker');
+            }else{
+                let source = {uri: response.uri};
+                if(param.target==='userPhoto'){
+                    dispatch(updateProfilePhoto({source:source.uri , uid:usrReducer.user.id}));
+                }
+            }
+        })
+
+    }
+}

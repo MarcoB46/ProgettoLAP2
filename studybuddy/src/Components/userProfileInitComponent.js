@@ -29,14 +29,30 @@ export default class UserProfileInitComponent extends Component {
     return (
       <View style={{justifyContent: 'space-around', flex:1}}>
         <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
-        <Avatar
+       { this.props.user.photoURL
+          ?
+          <Avatar
           xlarge
           rounded
-          icon={{name: 'camera', type: 'font-awesome'}}
-          onPress={() => console.log("Works!")}
+          source={{uri: this.props.user.photoURL}}
+          onPress={() =>{
+             this.props.takePhoto({target:'userPhoto'});
+             }}
           activeOpacity={0.7}
           containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
         />
+         :
+         <Avatar
+          xlarge
+          rounded
+          icon={{name: 'camera', type: 'font-awesome'}}
+          onPress={() =>{
+             this.props.takePhoto({target:'userPhoto'});
+             }}
+          activeOpacity={0.7}
+          containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
+        />    
+       }
         <View>
           <FormLabel>Username</FormLabel>
           <FormInput
@@ -60,6 +76,8 @@ export default class UserProfileInitComponent extends Component {
           
          
         </View>
+
+        {/*DEBUG*/}
         <Button
             large
             raised 
@@ -74,6 +92,8 @@ export default class UserProfileInitComponent extends Component {
               .catch((error)=>{console.log(error)});
             }}
             title='logout' />
+        {/************/}
+
       </View>
     )
   }

@@ -26,6 +26,8 @@ const usrReducer = (state=initialState, action)=>{
         case actionType.NO_USER:
             return Object.assign({}, state, {user:{  }});
         
+        case actionType.UPDATE_PROFILE:
+            return Object.assign({}, state, {user:{photoURL:action.param.photoURL}});
     
         default:
             return state;
