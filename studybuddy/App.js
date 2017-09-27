@@ -12,19 +12,19 @@ import UserProfileInit from './src/Containers/userProfileInitContainer';
 //   })
 
 const MainStack = StackNavigator({
-  SignIn:{
-    screen: SignIn,
-    navigationOptions: ({navigation})=>({
-      title:'Registrati !', 
-      header:null  
-    })
-  },
   LogIn:{
     screen: LogIn,
     navigationOptions: ({navigation})=>({
       title:'Accedi:', 
       header:null  
     }),
+  },
+  SignIn:{
+    screen: SignIn,
+    navigationOptions: ({navigation})=>({
+      title:'Registrati !', 
+      header:null  
+    })
   },
   UserProfileInit:{
     screen: UserProfileInit,

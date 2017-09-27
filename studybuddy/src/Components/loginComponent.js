@@ -12,7 +12,9 @@ export default class componentName extends Component {
     }
     this.resetNavigation=this.resetNavigation.bind(this);
   }
-
+  componentWillMount = () => {
+    this.props.checkLogIn(this.resetNavigation) //momentaneo
+  }
   resetNavigation= (targetRoute) => {
     const resetAction = NavigationActions.reset({
       index: 0,
@@ -46,8 +48,10 @@ export default class componentName extends Component {
                     this.setState({
                       mail:text
                     })
+                  
                   }}
                   inputStyle={{color:'#03A9F4'}}
+                  keyboardType='email-address'
                 />
               </View>
           </View>
@@ -72,6 +76,7 @@ export default class componentName extends Component {
                     })
                   }}
                   inputStyle={{color:'#03A9F4'}}
+                  secureTextEntry
                 />
               </View>
             </View>
@@ -91,7 +96,15 @@ export default class componentName extends Component {
             type='facebook'
           />*/}
         </Card> 
-
+        <Button
+          containerViewStyle={{ borderRadius:30}}
+          title='Non hai un account? Registrati!'
+          backgroundColor='#03A9F4'
+          borderRadius={30}
+          onPress= {()=>{
+            this.props.navigation.navigate('SignIn');
+          }}
+        ></Button>
       </View>
     )
   }

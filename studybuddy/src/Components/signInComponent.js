@@ -23,9 +23,7 @@ export default class signInComponent extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  componentWillMount = () => {
-    this.props.checkLogIn(this.resetNavigation) //momentaneo
-  }
+ 
 
   render() {
     return (
@@ -63,6 +61,7 @@ export default class signInComponent extends Component {
                     })
                   }}
                   inputStyle={{color:'#03A9F4'}}
+                  keyboardType='email-address'
                 />
               </View>
           </View>
@@ -76,7 +75,7 @@ export default class signInComponent extends Component {
               onPress={() => alert('la password deve essere lunga almeno 6 caratteri')}
               underlayColor='#3F51B5ff'
               reverse
-              />
+            />
               <View>
                 <FormLabel>Password</FormLabel>
                 <FormInput 
@@ -91,14 +90,14 @@ export default class signInComponent extends Component {
               </View>
             </View>
             <Button
-            title='Registrati'
-            backgroundColor='#03A9F4'
-            onPress= {()=>{
-              var user ={mail:this.state.mail,password: this.state.password}
-              this.props.signIn(user, this.resetNavigation)
-            }}
-            containerViewStyle={{marginTop:'5%', borderRadius:30}}
-            borderRadius={30}
+              title='Registrati'
+              backgroundColor='#03A9F4'
+              onPress= {()=>{
+                var user ={mail:this.state.mail,password: this.state.password}
+                this.props.signIn(user, this.resetNavigation)
+              }}
+              containerViewStyle={{marginTop:'5%', borderRadius:30}}
+              borderRadius={30}
           ></Button>
           {/* <SocialIcon
             title='Sign In With Facebook'
@@ -106,15 +105,6 @@ export default class signInComponent extends Component {
             type='facebook'
           />*/}
         </Card> 
-
-        <Button
-          containerViewStyle={{marginBottom:'5%'}}
-          title='Hai già un account? Accedi!'
-          backgroundColor='#03A9F4'
-          onPress= {()=>{
-            this.props.navigation.navigate('LogIn');
-          }}
-        ></Button>
       </View>
     )
   }

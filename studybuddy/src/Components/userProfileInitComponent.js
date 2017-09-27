@@ -87,7 +87,7 @@ export default class UserProfileInitComponent extends Component {
               firebase.auth().signOut()
               .then(() => {
                 console.log('User signed out successfully');
-                this.resetNavigation('SignIn');
+                this.resetNavigation('LogIn');
               })
               .catch((error)=>{console.log(error)});
             }}

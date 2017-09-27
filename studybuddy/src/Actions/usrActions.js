@@ -3,30 +3,33 @@ import * as actionTypes from '../Common/actionTypes';
 var ImagePicker = require('react-native-image-picker');
 
 export const checkLogIn = (callback)=>{
-    return (dispatch)=>{
-        dispatch({type:actionTypes.START_LOADING});
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in.
-                var userInfo = { // modificare questa parte se utilizzero redux persist
-                    mail: user.email,
-                    userName: user.displayName,
-                    id:user.uid,
-                    photoURL:user.photoURL
+    return (dispatch, getState)=>{
+        if(!getState().usrReducer.authListener){
+            dispatch({type:actionTypes.START_LOADING});
+            const stopAuthListener = firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var userInfo = { // modificare questa parte se utilizzero redux persist
+                        mail: user.email,
+                        userName: user.displayName,
+                        id:user.uid,
+                        photoURL:user.photoURL
+                    }
+                    console.log('====================================');
+                    console.log('utente loggato :: ', userInfo);
+                    console.log('====================================');
+    
+                    dispatch({type:actionTypes.STOP_LOADING});
+                    dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
+                    callback('UserProfileInit')//controllare prima se si è già fatto l'init o meno , o , impostare una variabile nello store che indica il targhet in cui deve essere portata l'app, nell'init o nella home
+                } else {
+                    // No user is signed in.
+                    dispatch({type: actionTypes.NO_USER}); 
+                    dispatch({type:actionTypes.STOP_LOADING});
                 }
-                console.log('====================================');
-                console.log('utente loggato :: ', userInfo);
-                console.log('====================================');
-
-                dispatch({type:actionTypes.STOP_LOADING});
-                dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
-                callback('UserProfileInit')//controllare prima se si è già fatto l'init o meno
-            } else {
-                // No user is signed in.
-                dispatch({type: actionTypes.NO_USER}); 
-                dispatch({type:actionTypes.STOP_LOADING});
-            }
-          });
+              });
+              dispatch({type:actionTypes.SET_USER_AUTH_LISTENER, payload: stopAuthListener});
+        }
     }
 } 
 
