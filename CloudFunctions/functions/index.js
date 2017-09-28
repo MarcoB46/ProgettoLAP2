@@ -11,7 +11,7 @@ exports.sendNewMessageNotification =
 
         
 
-    console.log(event.data.val());
+    console.log(event);
 
        return admin.messaging()
         .sendToTopic('main', {

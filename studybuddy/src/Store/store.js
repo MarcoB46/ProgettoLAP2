@@ -1,5 +1,5 @@
 import usrReducer from '../Reducers/usrReducer';
-
+import databaseReducer from '../Reducers/databaseReducer';
 import {createStore,combineReducers, applyMiddleware, compose} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
@@ -10,7 +10,7 @@ const loggerMiddleware = createLogger({
 
 const Reducer = combineReducers({
     usrReducer,
-
+    databaseReducer
 });
 
 const enhancer = compose(

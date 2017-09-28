@@ -15,13 +15,11 @@ export const checkLogIn = (callback)=>{
                         id:user.uid,
                         photoURL:user.photoURL
                     }
-                    console.log('====================================');
-                    console.log('utente loggato :: ', userInfo);
-                    console.log('====================================');
     
                     dispatch({type:actionTypes.STOP_LOADING});
                     dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
-                    callback('UserProfileInit')//controllare prima se si è già fatto l'init o meno , o , impostare una variabile nello store che indica il targhet in cui deve essere portata l'app, nell'init o nella home
+                    if(getState().usrReducer.EOI) callback('MainTabScreen')
+                    else callback('UserProfileInit');
                 } else {
                     // No user is signed in.
                     dispatch({type: actionTypes.NO_USER}); 
@@ -131,4 +129,20 @@ export const takePhoto =(param)=>{
         })
 
     }
+}
+
+export const setUserName =(userName)=>{
+    return (dispatch)=>{
+        firebase.auth().currentUser
+            .updateProfile({
+                displayName:userName
+            })
+            .then(()=>{
+                dispatch({type:actionTypes.UPDATE_PROFILE, param:{userName:userName}})
+            })
+    }
+}
+
+export const setEOI = (bool) =>{
+    return{type:actionTypes.SET_EOI, payload:bool}
 }

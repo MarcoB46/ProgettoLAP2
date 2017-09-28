@@ -5,11 +5,15 @@ import store from './src/Store/store';
 import SignIn from './src/Containers/signInContainer';
 import LogIn from './src/Containers/loginContainer';
 import UserProfileInit from './src/Containers/userProfileInitContainer';
+import QuestionPage from './src/Containers/questionPageContainer';
+import GroupPage from './src/Containers/groupPageContainer';
 
 
-// const MainTabScreen = TabNavigator({
-  
-//   })
+
+const MainTabScreen = TabNavigator({
+  Question: {screen:QuestionPage},
+  Group:{screen:GroupPage}
+})
 
 const MainStack = StackNavigator({
   LogIn:{
@@ -33,12 +37,12 @@ const MainStack = StackNavigator({
       headerLeft: null,
     })
   },
-  // MainTabScreen:{
-  //   screen: MainTabScreen,
-  //   navigationOptions:({navigate})=>({
-  //     header:null,
-  //   })
-  // },
+  MainTabScreen:{
+    screen: MainTabScreen,
+    navigationOptions:({navigate})=>({
+      header:null,
+    })
+  }
 })
 
 export default class App extends React.Component{

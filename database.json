@@ -1,0 +1,182 @@
+{"corsi":{
+    "INF01":{
+        "nome_corso":"informatica",
+        "materie":[
+            {
+                "anno":"primo",
+                "materie":[
+                    {
+                        "nome_materia":"Programmazione 1"
+                    
+                    },
+                    {
+                        "nome_materia":"Programmazione 2"
+          
+                    },
+                    {
+                        "nome_materia":"Matematica Discreta"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"secondo",
+                "materie":[
+                    {
+                        "nome_materia":"Database"
+                    
+                    },
+                    {
+                        "nome_materia":"Algoritmi"
+          
+                    },
+                    {
+                        "nome_materia":"Interazione e Multimedia"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"terzo",
+                "materie":[
+                    {
+                        "nome_materia":"LAP2"
+                    
+                    },
+                    {
+                        "nome_materia":"SGD"
+          
+                    },
+                    {
+                        "nome_materia":"Fisica"
+                        
+                    },
+                    {
+                        "nome_materia":"Metodi Matematici"
+                        
+                    }
+                ]               
+            }
+        ]
+    }, 
+    "INF02":{
+        "nome_corso":"informatica2",
+        "materie":[
+            {
+                "anno":"primo",
+                "materie":[
+                    {
+                        "nome_materia":"Programmazione 1"
+                    
+                    },
+                    {
+                        "nome_materia":"Programmazione 2"
+          
+                    },
+                    {
+                        "nome_materia":"Matematica Discreta"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"secondo",
+                "materie":[
+                    {
+                        "nome_materia":"Database"
+                    
+                    },
+                    {
+                        "nome_materia":"Algoritmi"
+          
+                    },
+                    {
+                        "nome_materia":"Interazione e Multimedia"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"terzo",
+                "materie":[
+                    {
+                        "nome_materia":"LAP2"
+                    
+                    },
+                    {
+                        "nome_materia":"SGD"
+          
+                    },
+                    {
+                        "nome_materia":"Fisica"
+                        
+                    },
+                    {
+                        "nome_materia":"Metodi Matematici"
+                        
+                    }
+                ]               
+            }
+        ]
+    }, 
+    "INF03":{
+        "nome_corso":"informatica3",
+        "materie":[
+            {
+                "anno":"primo",
+                "materie":[
+                    {
+                        "nome_materia":"Programmazione 1"
+                    
+                    },
+                    {
+                        "nome_materia":"Programmazione 2"
+          
+                    },
+                    {
+                        "nome_materia":"Matematica Discreta"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"secondo",
+                "materie":[
+                    {
+                        "nome_materia":"Database"
+                    
+                    },
+                    {
+                        "nome_materia":"Algoritmi"
+          
+                    },
+                    {
+                        "nome_materia":"Interazione e Multimedia"
+                        
+                    }
+                ]               
+            },
+            {
+                "anno":"terzo",
+                "materie":[
+                    {
+                        "nome_materia":"LAP2"
+                    
+                    },
+                    {
+                        "nome_materia":"SGD"
+          
+                    },
+                    {
+                        "nome_materia":"Fisica"
+                        
+                    },
+                    {
+                        "nome_materia":"Metodi Matematici"
+                        
+                    }
+                ]               
+            }
+        ]
+    }
+}}

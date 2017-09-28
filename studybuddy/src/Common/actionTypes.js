@@ -5,3 +5,6 @@ export const USER_LOGGED ='USER_LOGGED';
 export const NO_USER = 'NO_USER';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const SET_USER_AUTH_LISTENER = 'SET_USER_AUTH_LISTENER';
+export const SET_COURSES = 'SET_COURSES';
+export const SET_SELECTED_COURSE = 'SET_SELECTED_COURSE';
+export const SET_EOI = 'SET_EOI';

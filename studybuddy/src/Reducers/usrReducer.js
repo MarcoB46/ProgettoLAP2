@@ -9,7 +9,7 @@ const initialState = {
     },
     isLoading: false,
     authListener:null,
-
+    EOI: false,
 }
 
 
@@ -28,10 +28,13 @@ const usrReducer = (state=initialState, action)=>{
             return Object.assign({}, state, { user:{  } , authListener:null });
         
         case actionType.UPDATE_PROFILE:
-            return Object.assign({}, state, {user:{photoURL:action.param.photoURL}});
+            return Object.assign({}, state, {user:{...state.user,...action.param}});
         
         case actionType.SET_USER_AUTH_LISTENER:
             return Object.assign({}, state, {authListener:action.payload});
+
+        case actionType.SET_EOI:
+            return Object.assign({}, state, {EOI: action.payload});
 
         default:
             return state;
