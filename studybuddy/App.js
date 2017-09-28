@@ -7,6 +7,10 @@ import LogIn from './src/Containers/loginContainer';
 import UserProfileInit from './src/Containers/userProfileInitContainer';
 import QuestionPage from './src/Containers/questionPageContainer';
 import GroupPage from './src/Containers/groupPageContainer';
+import {Spinner} from './src/Common/spinner';
+import {persistStore} from 'redux-persist';
+import {AsyncStorage} from 'react-native';
+
 
 
 
@@ -46,11 +50,26 @@ const MainStack = StackNavigator({
 })
 
 export default class App extends React.Component{
+  constructor(){
+    super();
+    this.state={rehydrated:false}
+  }
+  componentWillMount = () => {
+    persistStore(store,{storage:AsyncStorage},()=>{
+      this.setState({
+        rehydrated:true
+      })
+    });
+  }
+  
   render(){
+    if(!this.state.rehydrated){
+      return <Spinner/>
+    }
     return (
       <Provider store={store}>
-        <MainStack/>
-      </Provider>
+          <MainStack/>
+        </Provider>
     )
   }
 }

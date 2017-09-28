@@ -1,4 +1,5 @@
 import * as actionType from '../Common/actionTypes';
+import {REHYDRATE} from 'redux-persist/constants';
 
 const initialState = {
     user:{
@@ -36,6 +37,11 @@ const usrReducer = (state=initialState, action)=>{
         case actionType.SET_EOI:
             return Object.assign({}, state, {EOI: action.payload});
 
+        case REHYDRATE:
+            var incoming = action.payload.myReducer
+            if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}
+            return state
+        
         default:
             return state;
     }
