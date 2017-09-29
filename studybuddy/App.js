@@ -7,16 +7,34 @@ import LogIn from './src/Containers/loginContainer';
 import UserProfileInit from './src/Containers/userProfileInitContainer';
 import QuestionPage from './src/Containers/questionPageContainer';
 import GroupPage from './src/Containers/groupPageContainer';
+import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
 import {AsyncStorage} from 'react-native';
 
 
-
-
 const MainTabScreen = TabNavigator({
-  Question: {screen:QuestionPage},
-  Group:{screen:GroupPage}
+  Question: {screen:QuestionPage, 
+    navigationOptions:{tabBarLabel:'Domande'}},
+  Group:{screen:GroupPage,
+    navigationOptions:{tabBarLabel:'Gruppi'}}
+}, {
+  tabBarPosition:'bottom',
+  tabBarOptions:{
+    style:{backgroundColor:'#3F51B5'}
+  }
+})
+
+const MiddleStackScreen=StackNavigator({
+  CourseDetail:{
+    screen:CourseDetails,
+    navigationOptions:({navigation})=>({
+      header:null
+    })
+  },
+  MainTabScreen:{
+    screen: MainTabScreen
+  }
 })
 
 const MainStack = StackNavigator({
@@ -41,10 +59,11 @@ const MainStack = StackNavigator({
       headerLeft: null,
     })
   },
-  MainTabScreen:{
-    screen: MainTabScreen,
-    navigationOptions:({navigate})=>({
+  MiddleStackScreen:{
+    screen:MiddleStackScreen,
+    navigationOptions:({navigation})=>({
       header:null,
+      headerLeft: null,
     })
   }
 })

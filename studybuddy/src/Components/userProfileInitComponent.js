@@ -43,7 +43,7 @@ export default class UserProfileInitComponent extends Component {
       this.props.setUserName(this.state.userName);
       this.props.setCourseId(this.state.selectedCourse);
       this.props.setEOI(true);
-      this.resetNavigation('MainTabScreen');
+      this.resetNavigation('MiddleStackScreen');
       //TODO, AGGIUNGERE NAVIGAZIONE ALLA NUOVA PAGINA E CARICAMENTO DEGLI ELEMENTI
     }else{
       if(!this.state.userName) this.setState({errorLabelUserNameVisible:true});
@@ -118,7 +118,6 @@ export default class UserProfileInitComponent extends Component {
 
         </View>
 
-        {/*DEBUG*/}
         <Button
             large
             raised 
@@ -134,7 +133,6 @@ export default class UserProfileInitComponent extends Component {
               this.submitHandler();
             }}
             title='Fatto' />
-        {/************/}
 
       </View>
     )

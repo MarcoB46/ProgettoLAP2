@@ -8,10 +8,8 @@ export const getCourses= ()=>{
         ref.once('value',(snapshot)=>{
             var corsi= new Array();
             snapshot.forEach((child)=>{
-                console.log('child::::' , child)
                 corsi.push({
                     corso:child._value.nome_corso,
-                    materie:child._value.materie,
                     key:child.key
                 })
             })
@@ -24,15 +22,23 @@ export const getCourses= ()=>{
 export const setCourseId=(CID)=>{
     return (dispatch)=>{
         dispatch({type:actionTypes.SET_SELECTED_COURSE, payload:CID});
-        //dispatch(fetchPost(CID));
+        //dispatch(fetchCourseDetails(CID));
     }
 }
 
-export const fetchPost=(path)=>{ //da modificare
-    firebase.database().ref(path)
-        .on('value',(snapshot)=>{
-            snapshot.forEach((child)=>{
-                
-            })
+export const fetchCourseDetails=()=>{ //da modificare
+    return (dispatch, getState) =>{
+        dispatch({type:actionTypes.START_LOADING});
+        var ref = firebase.database().ref(`corsi/${getState().databaseReducer.selectedCourse}`);
+        ref.once('value',(snapshot)=>{
+            var arr = snapshot._value.dettaglio;
+            dispatch({type:actionTypes.SET_SUBJECTS, payload:arr});
+            dispatch({type:actionTypes.STOP_LOADING});
         })
+        ref.keepSynced(true);
+    }
+}
+
+export const setSubject=(subjectId)=>{
+    return {type:actionTypes.SET_SELECTED_SUBJECT, payload:subjectId};
 }

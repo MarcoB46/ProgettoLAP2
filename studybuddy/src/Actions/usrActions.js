@@ -18,7 +18,7 @@ export const checkLogIn = (callback)=>{
     
                     dispatch({type:actionTypes.STOP_LOADING});
                     dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
-                    if(getState().usrReducer.EOI) callback('MainTabScreen')
+                    if(getState().usrReducer.EOI) callback('MiddleStackScreen')
                     else callback('UserProfileInit');
                 } else {
                     // No user is signed in.
