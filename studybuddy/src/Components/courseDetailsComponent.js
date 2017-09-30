@@ -16,16 +16,16 @@ export default class courseDetailsComponent extends Component {
     this.props.fetchCourseDetails();
   }
   
-
   render() {
     const {navigate} = this.props.navigation;
     return (  
-      <ScrollView style={{backgroundColor:'#E8EAF6' ,flex:1}}>
+      <View style={{flex:1}}>
         {
           this.props.isLoading
           ?
-            <Spinner/>
+              <Spinner/>
           :
+          <ScrollView style={{backgroundColor:'#E8EAF6' ,flex:1}}>
             <View style={{alignContent:'space-around'}}>
               <CustomText h2 style={{textAlign:'center', color:'#3F51B5'}} >Seleziona una materia</CustomText>
               {
@@ -47,10 +47,11 @@ export default class courseDetailsComponent extends Component {
                   );
                 })
               }
-
             </View>
+          </ScrollView>
         }
-      </ScrollView>
+        </View>
     )
   }
+
 }

@@ -3,6 +3,8 @@ import * as actionType from '../Common/actionTypes';
 const initialState ={
     corsi:[],
     materie:[],
+    questions:[],
+    groups:[],
     selectedCourse:null, 
     selectedSubject:null,
     isLoading:false
@@ -27,6 +29,8 @@ const databaseReducer = (state=initialState, action)=>{
         
         case actionType.SET_SELECTED_SUBJECT:
             return Object.assign({},state, {selectedSubject: action.payload});
+        case actionType.SET_QUESTIONS:
+            return Object.assign({}, state, {questions: action.payload});
 
         default:
             return state;

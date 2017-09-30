@@ -7,9 +7,6 @@ admin.initializeApp(functions.config().firebase);
 
 exports.sendNewMessageNotification = 
     functions.database.ref(`users/messages/{mid}`).onWrite((event) => {
-     
-
-        
 
     console.log(event);
 

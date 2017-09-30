@@ -42,3 +42,22 @@ export const fetchCourseDetails=()=>{ //da modificare
 export const setSubject=(subjectId)=>{
     return {type:actionTypes.SET_SELECTED_SUBJECT, payload:subjectId};
 }
+
+export const startQuestionFetch = () =>{
+    return (dispatch,getState)=>{
+        dispatch({type:actionTypes.START_LOADING});
+        var dbState = getState().databaseReducer;
+        var ref = firebase.database().ref(`${dbState.selectedCourse}/${dbState.selectedSubject}/q`);
+        ref.on('value', (snapshot)=>{
+            var questions=[];
+            if(snapshot.val()){
+                snapshot.val().forEach(
+                    (element,index) =>{
+                        questions.push(Object.assign({},element,{key:index}))
+                    },this);
+            }
+            dispatch({type:actionTypes.SET_QUESTIONS, payload:questions});
+        });
+        dispatch({type:actionTypes.STOP_LOADING});
+    }
+}

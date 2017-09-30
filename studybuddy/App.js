@@ -11,6 +11,8 @@ import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
 import {AsyncStorage} from 'react-native';
+import HeaderButtons from './src/Common/headerButtons'
+
 
 
 const MainTabScreen = TabNavigator({
@@ -21,8 +23,9 @@ const MainTabScreen = TabNavigator({
 }, {
   tabBarPosition:'bottom',
   tabBarOptions:{
-    style:{backgroundColor:'#3F51B5'}
+    style:{backgroundColor:'#3F51B5'},
   }
+
 })
 
 const MiddleStackScreen=StackNavigator({
@@ -33,7 +36,15 @@ const MiddleStackScreen=StackNavigator({
     })
   },
   MainTabScreen:{
-    screen: MainTabScreen
+    screen: MainTabScreen,
+    navigationOptions:({navigation})=>({
+      headerTintColor:'white',
+      headerStyle:{backgroundColor:'#3F51B5'},
+      headerRight:(
+        <HeaderButtons/>
+      ),
+      title: (navigation.state.params.nome_materia ? navigation.state.params.nome_materia : '' ) 
+    })
   }
 })
 

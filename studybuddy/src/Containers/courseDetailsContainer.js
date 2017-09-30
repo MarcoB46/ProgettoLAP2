@@ -5,7 +5,7 @@ import {fetchCourseDetails} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
     isLoading: state.databaseReducer.isLoading,
-    materie:state.databaseReducer.materie,
+    materie:state.databaseReducer.materie
 })
 
 const mapDispatchToProps = (dispatch)=> {

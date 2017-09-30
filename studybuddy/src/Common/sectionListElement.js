@@ -23,11 +23,10 @@ class SectionListElementComponent extends Component {
 
   onPressHandler=()=>{
     this.props.setSubject(this.props.codice);
-    this.props.callback('MainTabScreen');
+    this.props.callback('MainTabScreen', {nome_materia: this.props.title});
   }
 
   render() {
-    //console.log(this.props)
     return (
       <View style={{margin:'2%', borderColor:'#E8EAF6', borderWidth:2, borderRadius:10}}>
         <TouchableHighlight  
