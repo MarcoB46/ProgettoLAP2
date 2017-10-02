@@ -6,7 +6,7 @@ import {Icon, Card} from 'react-native-elements';
 import { StackNavigator} from 'react-navigation';
 
 
-export default class questionPageComponent extends Component {
+export default class groupsPageComponent extends Component {
 
   constructor(props){
     super(props);
@@ -14,7 +14,7 @@ export default class questionPageComponent extends Component {
   }
 
   componentWillMount = () => {
-    this.props.startQuestionsFetch()
+    this.props.startGroupsFetch()
   }
   
 
@@ -37,7 +37,7 @@ export default class questionPageComponent extends Component {
           }}
           renderItem={ ({item})=>{
             return(
-              <QuestionListElement author={item.author} avatar={item.avatar} text={item.text} key={item.key} images={item.images} data={item.date} comments={item.comments} callback={navigate}/>
+              <QuestionListElement author={item.author} avatar={item.avatar} text={item.text} key={item.key} images={item.images} comments={item.comments} callback={navigate}/>
               )
           }}
           keyExtractor={(item, index)=> index}
@@ -52,7 +52,7 @@ export default class questionPageComponent extends Component {
                 color='#F44336'
                 containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
                 onPress={() => {
-                  navigate('NewQuestion');
+                  navigate('NewGroup');
                 }} 
                 /> 
       </View>

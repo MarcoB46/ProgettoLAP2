@@ -6,7 +6,7 @@ import SignIn from './src/Containers/signInContainer';
 import LogIn from './src/Containers/loginContainer';
 import UserProfileInit from './src/Containers/userProfileInitContainer';
 import QuestionPage from './src/Containers/questionPageContainer';
-import GroupPage from './src/Containers/groupPageContainer';
+import GroupPage from './src/Containers/groupsPageContainer';
 import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
@@ -14,6 +14,8 @@ import {AsyncStorage} from 'react-native';
 import HeaderButtons from './src/Common/headerButtons';
 import NewQuestion from './src/Containers/newQuestionContainer';
 import ElementDetail from './src/Containers/elementDetailContainer';
+import NewGroup from './src/Containers/newGroupContainer';
+
 
 const MainTabScreen = TabNavigator({
   Question: {screen:QuestionPage, 
@@ -53,8 +55,16 @@ const MiddleStackScreen=StackNavigator({
       title:'Nuova Domanda:'
     })
   },
+  
   ElementDetail:{
     screen: ElementDetail, 
+    navigationOptions:({navigation})=>({
+      headerTintColor:'white',
+      headerStyle:{backgroundColor:'#3F51B5'}
+    })
+  },
+  NewGroup:{
+    screen:NewGroup,
     navigationOptions:({navigation})=>({
       headerTintColor:'white',
       headerStyle:{backgroundColor:'#3F51B5'}

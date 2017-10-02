@@ -43,7 +43,7 @@ export const setSubject=(subjectId)=>{
     return {type:actionTypes.SET_SELECTED_SUBJECT, payload:subjectId};
 }
 
-export const startQuestionFetch = () =>{
+export const startQuestionsFetch = () =>{
     return (dispatch,getState)=>{
         dispatch({type:actionTypes.START_LOADING});
         var dbState = getState().databaseReducer;
@@ -88,5 +88,25 @@ export const sendPost = (toSend)=>{
             
         });
         
+    }
+}
+
+export const startGroupsFetch=() =>{
+    return (dispatch,getState)=>{
+        dispatch({type:actionTypes.START_LOADING});
+        var dbState = getState().databaseReducer;
+        var ref = firebase.database().ref(`${dbState.selectedCourse}/${dbState.selectedSubject}/g`);
+        ref.on('value', (snapshot)=>{
+            var groups=[];
+            if(snapshot.val()){
+                snapshot.forEach(
+                    (element,index) =>{
+                        groups.push(Object.assign({},element.val(),{key:index}))
+                    },this);
+            }
+            groups = groups.reverse();
+            dispatch({type:actionTypes.SET_GROUPS, payload:groups});
+        });
+        dispatch({type:actionTypes.STOP_LOADING});
     }
 }

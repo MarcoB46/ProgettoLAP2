@@ -33,7 +33,7 @@ class QuestionListElementComponent extends Component {
     return (
         <View style={{marginBottom:'4%'}}>
             <Card>
-                <TouchableHighlight onPress={ ()=> this.props.callback('ElementDetail', { text:this.props.text, avatar:this.props.avatar, author:this.props.author,images:this.props.images , comments:this.props.comments }) } underlayColor='#3F51B5AA' >   
+                <TouchableHighlight onPress={ ()=> this.props.callback('ElementDetail', { text:this.props.text, avatar:this.props.avatar, author:this.props.author,images:this.props.images , comments:this.props.comments, data:this.props.data }) } underlayColor='#3F51B5AA' >   
                     <View>
                         <View style={{flexDirection:'row', marginBottom:'3%'}}>
                             <Avatar

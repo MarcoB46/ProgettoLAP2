@@ -34,7 +34,7 @@ class SectionListElementComponent extends Component {
           onPress={()=>{
             this.onPressHandler();
           }}>
-          <View>
+          <View style={{height:50}}>
             <CustomText style={{textAlign:'center', fontSize:20}}  > {this.props.title} </CustomText>
           </View>
         </TouchableHighlight>

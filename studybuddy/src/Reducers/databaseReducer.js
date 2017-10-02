@@ -29,8 +29,12 @@ const databaseReducer = (state=initialState, action)=>{
         
         case actionType.SET_SELECTED_SUBJECT:
             return Object.assign({},state, {selectedSubject: action.payload});
-        case actionType.SET_QUESTIONS:
+        
+            case actionType.SET_QUESTIONS:
             return Object.assign({}, state, {questions: action.payload});
+        
+            case actionType.SET_COURSES:
+            return Object.assign({}, state, {groups: action.payload});
 
         default:
             return state;
