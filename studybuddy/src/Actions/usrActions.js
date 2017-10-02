@@ -100,19 +100,33 @@ const updateProfilePhoto = (param) =>{
 export const takePhoto =(param)=>{
     return (dispatch, getState)=>{
         const {usrReducer} = getState();
-
-        var options = {
-            title:'Seleziona il tuo avatar',
-            takePhotoButtonTitle:'Scatta una foto',
-            chooseFromLibraryButtonTitle:'Seleziona dalla galleria',
-            quality:1,
-            rotation:0,
-            noData:true,
-            storageOptions: {
-                cameraRoll:true
-              }
+        var options;
+        if(param.target==='userPhoto'){
+            options = {
+                title:'Seleziona il tuo avatar',
+                takePhotoButtonTitle:'Scatta una foto',
+                chooseFromLibraryButtonTitle:'Seleziona dalla galleria',
+                quality:0.5,
+                rotation:0,
+                noData:true,
+                storageOptions: {
+                    cameraRoll:true
+                  }
+            }
+        }else if(param.target==='postPhoto'){
+            options = {
+                title:'Scegli una immagine',
+                takePhotoButtonTitle:'Scatta una foto',
+                chooseFromLibraryButtonTitle:'Seleziona dalla galleria',
+                quality:0.5,
+                rotation:0,
+                noData:true,
+                storageOptions: {
+                    cameraRoll:true
+                  }
+            }
         }
-
+         
         ImagePicker.showImagePicker(options, (response)=>{
             if(response.didCancel){
                 //utente ha cancellato la selezione, non fare niente
@@ -124,10 +138,11 @@ export const takePhoto =(param)=>{
                 let source = {uri: response.uri};
                 if(param.target==='userPhoto'){
                     dispatch(updateProfilePhoto({source:source.uri , uid:usrReducer.user.id}));
+                }else if(param.target==='postPhoto'){
+                    dispatch({type:actionTypes.ADD_POST_PHOTO, payload: source.uri});
                 }
             }
         })
-
     }
 }
 
@@ -145,4 +160,16 @@ export const setUserName =(userName)=>{
 
 export const setEOI = (bool) =>{
     return{type:actionTypes.SET_EOI, payload:bool}
+}
+
+
+export const removePhoto= (param) =>{
+    return(dispatch)=>{
+        if(param.target === 'postPhoto'){
+            dispatch({type:actionTypes.REMOVE_POST_PHOTO, payload: param.index})
+        }
+        if(param.target === 'postPhotosAll'){
+            dispatch({type:actionTypes.REMOVE_POST_PHOTOS});
+        }
+    }
 }

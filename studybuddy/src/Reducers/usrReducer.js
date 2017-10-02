@@ -11,6 +11,7 @@ const initialState = {
     isLoading: false,
     authListener:null,
     EOI: false,
+    postPhoto:[],
 }
 
 
@@ -36,6 +37,15 @@ const usrReducer = (state=initialState, action)=>{
 
         case actionType.SET_EOI:
             return Object.assign({}, state, {EOI: action.payload});
+
+        case actionType.REMOVE_POST_PHOTO:
+            return Object.assign({}, state, {postPhoto:[...state.postPhoto.slice(0,action.payload),...state.postPhoto.slice(action.payload+1)]});
+
+        case actionType.REMOVE_POST_PHOTOS:
+            return Object.assign({}, state, {postPhoto:[]});
+
+        case actionType.ADD_POST_PHOTO:
+            return Object.assign({}, state, {postPhoto:[...state.postPhoto, {source:action.payload}]});
 
         case REHYDRATE:
             var incoming = action.payload.myReducer

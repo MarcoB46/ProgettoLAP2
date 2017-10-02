@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View, FlatList } from 'react-native';
+import { Text, ScrollView, View, FlatList, TouchableHighlight } from 'react-native';
 import QuestionListElement from '../Common/questionListElement';
 import {Spinner} from '../Common/spinner';
 import {Icon} from 'react-native-elements';
@@ -23,15 +23,19 @@ export default class questionPageComponent extends Component {
     if(this.props.isLoading){
       return (<Spinner/>) 
     }
+    const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
         <FlatList
           style={{flex:1}}
           data={this.props.questions}
           renderItem={ ({item})=>{
-            return(<QuestionListElement author={item.author} avatar={item.avatar} text={item.text} key={item.key} images={item.images} comments={item.comments} />)
+            return(
+              <QuestionListElement author={item.author} avatar={item.avatar} text={item.text} key={item.key} images={item.images} comments={item.comments} callback={navigate}/>
+              )
           }}
           //extraData={this.props.questions} //controllare
+          keyExtractor={(item, index)=> index}
         />
         <Icon
                 underlayColor='white'
@@ -41,11 +45,15 @@ export default class questionPageComponent extends Component {
                 raised
                 size={35}
                 color='#F44336'
-                containerStyle={{position:'absolute', bottom: '7%',left:'80%'}}
-                //onPress={() => this.setState({reversedHeart: !this.state.reversedHeart})} 
+                containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
+                onPress={() => {
+                  navigate('NewQuestion');
+                }} 
                 /> 
       </View>
     )
   }
 
 }
+
+//bottom: '7%',left:'80%'

@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image , FlatList, Modal} from 'react-native';
 import { Text as CustomText, Card, Badge, Avatar, Button, Icon} from 'react-native-elements';
-import { connect } from 'react-redux';
-//import {} from '../Actions/databaseActions';
 
-const mapStateToProps = (state) => ({
-    user:state.usrReducer.user, 
-})
-
-const mapDispatchToProps = (dispatch)=> {
-  return {
-      
-  }
-}
-
-class QuestionListElementComponent extends Component {
+export default class ElementDetailContainer extends Component {
 
   constructor(props){
     super(props);
@@ -22,46 +10,44 @@ class QuestionListElementComponent extends Component {
         detailURI:'',
         modalImageVisible:false
     }
-    this.setModalVisible=this.setModalVisible.bind(this);
+    this.setModalVisible=this.setImageModalVisible.bind(this);
   }
 
-  setModalVisible(visible, uri='') {
+  setImageModalVisible(visible, uri='') {
     this.setState({modalImageVisible: visible, detailURI:uri });
   }
 
   render() {
     return (
-        <View style={{marginBottom:'4%'}}>
-            <Card>
-                <TouchableHighlight onPress={ ()=> this.props.callback('ElementDetail', { text:this.props.text, avatar:this.props.avatar, author:this.props.author,images:this.props.images , comments:this.props.comments }) } underlayColor='#3F51B5AA' >   
+        <View style={{marginBottom:'4%', flex:1}}>
+            <Card containerStyle={{flex:1}}>
+                
                     <View>
                         <View style={{flexDirection:'row', marginBottom:'3%'}}>
                             <Avatar
                                     small
                                     rounded
-                                    source={{uri: this.props.avatar}}
+                                    source={{uri: this.props.navigation.state.params.avatar}}
                                     activeOpacity={0.7}
                                     containerStyle={{justifyContent:'flex-start', backgroundColor:'#03A9F4'}}
                                 />
-                            <CustomText h4 style={{textAlign:'center', marginLeft:'2%'}} > {this.props.author} </CustomText>
+                            <CustomText h4 style={{textAlign:'center', marginLeft:'2%'}} > {this.props.navigation.state.params.author} </CustomText>
                         </View>
-                        <Text ellipsizeMode='tail' numberOfLines={6} > 
-                            {this.props.text}
+                        <Text> 
+                            {this.props.navigation.state.params.text}
                         </Text>
                     </View>
-                    
-                </TouchableHighlight>
-           
+
                     {
-                        this.props.images
+                        this.props.navigation.state.params.images
                         ?
                         <FlatList
-                            data={this.props.images}
+                            data={this.props.navigation.state.params.images}
                             renderItem={({item}) => {
                                 return(
                                     <TouchableHighlight 
                                         onPress={() => {
-                                            this.setModalVisible(!this.state.modalImageVisible, item.source)
+                                            this.setImageModalVisible(!this.state.modalImageVisible, item.source)
                                         }}
                                         underlayColor='#3F51B5AA'    
                                     >
@@ -77,7 +63,7 @@ class QuestionListElementComponent extends Component {
             
                 <View style={{marginTop:'4%'}}>
                     <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
-                        <Text>Risposte : {this.props.comments ? this.props.comments.lenght() : 0 } </Text>
+                        <Text>Risposte : {this.props.navigation.state.params.comments ? this.props.navigation.state.params.comments.lenght() : 0 } </Text>
                     </Badge>
                 </View> 
             </Card>
@@ -98,7 +84,7 @@ class QuestionListElementComponent extends Component {
                         size={35}
                         color='#F44336'
                         containerStyle={{position:'absolute', top: 0,left:0}}
-                        onPress={()=>{ this.setModalVisible(false) }}
+                        onPress={()=>{ this.setImageModalVisible(false) }}
                     /> 
                 </View>
             </Modal>
@@ -107,6 +93,3 @@ class QuestionListElementComponent extends Component {
     )
   }
 }
-
-const QuestioListElement = connect(mapStateToProps, mapDispatchToProps)(QuestionListElementComponent)
-export default QuestioListElement;

@@ -11,9 +11,9 @@ import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
 import {AsyncStorage} from 'react-native';
-import HeaderButtons from './src/Common/headerButtons'
-
-
+import HeaderButtons from './src/Common/headerButtons';
+import NewQuestion from './src/Containers/newQuestionContainer';
+import ElementDetail from './src/Containers/elementDetailContainer';
 
 const MainTabScreen = TabNavigator({
   Question: {screen:QuestionPage, 
@@ -25,7 +25,6 @@ const MainTabScreen = TabNavigator({
   tabBarOptions:{
     style:{backgroundColor:'#3F51B5'},
   }
-
 })
 
 const MiddleStackScreen=StackNavigator({
@@ -44,6 +43,21 @@ const MiddleStackScreen=StackNavigator({
         <HeaderButtons/>
       ),
       title: (navigation.state.params.nome_materia ? navigation.state.params.nome_materia : '' ) 
+    })
+  },
+  NewQuestion:{
+    screen:NewQuestion, 
+    navigationOptions:({navigation})=>({
+      headerTintColor:'white',
+      headerStyle:{backgroundColor:'#3F51B5'},
+      title:'Nuova Domanda:'
+    })
+  },
+  ElementDetail:{
+    screen: ElementDetail, 
+    navigationOptions:({navigation})=>({
+      headerTintColor:'white',
+      headerStyle:{backgroundColor:'#3F51B5'}
     })
   }
 })

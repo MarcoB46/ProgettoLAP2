@@ -51,13 +51,42 @@ export const startQuestionFetch = () =>{
         ref.on('value', (snapshot)=>{
             var questions=[];
             if(snapshot.val()){
-                snapshot.val().forEach(
+                snapshot.forEach(
                     (element,index) =>{
-                        questions.push(Object.assign({},element,{key:index}))
+                        questions.push(Object.assign({},element.val(),{key:index}))
                     },this);
             }
+            questions = questions.reverse();
             dispatch({type:actionTypes.SET_QUESTIONS, payload:questions});
         });
         dispatch({type:actionTypes.STOP_LOADING});
+    }
+}
+
+export const sendPost = (toSend)=>{
+    return(dispatch, getState) =>{
+        var {usrReducer} = getState();
+        var {databaseReducer} = getState();
+        toSend.author=usrReducer.user.userName;
+        toSend.avatar=usrReducer.user.photoURL;
+        toSend.images=[];
+        var ref = firebase.database().ref(`${databaseReducer.selectedCourse}/${databaseReducer.selectedSubject}/${toSend.type}`);
+        ref.push(toSend).then((value)=>{
+            key=value.key
+            usrReducer.postPhoto.forEach(
+                (photo, index)=>{
+                    firebase.storage().ref(`/files/users/${usrReducer.user.id}/${toSend.type}/images/${key+index}`)
+                    .putFile(photo.source)
+                        .then( (uploadedFile)=>{
+                            toSend.images.push({source:uploadedFile.downloadUrl});
+                                firebase.database().ref(`${databaseReducer.selectedCourse}/${databaseReducer.selectedSubject}/${toSend.type}/${key}`).set(toSend)  
+                        } )
+                        .catch( (error)=>{
+                            console.log('errore da updateprofilephoto :: ', error);
+                        } );
+                },this);
+            
+        });
+        
     }
 }
