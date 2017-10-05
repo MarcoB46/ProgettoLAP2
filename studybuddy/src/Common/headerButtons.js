@@ -54,7 +54,7 @@ render() {
                         this.props.unsubscribe();
                     }else{
                         this.props.subscribe();
-                            }     //TODO , INSERIRE CONTROLLO INIZIALE PER CAPIRE SE SI è GIà SOTTOSCRITTI O MENO .
+                            }     
                     }} /> 
                 
         </View>

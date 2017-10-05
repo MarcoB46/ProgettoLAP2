@@ -17,12 +17,16 @@ import ElementDetail from './src/Containers/elementDetailContainer';
 import NewGroup from './src/Containers/newGroupContainer';
 import { Icon } from 'react-native-elements';
 import UpdateProfile from './src/Containers/updateProfileContainer';
+import Chat from './src/Containers/chatContainer';
+
 
 const MainTabScreen = TabNavigator({
   Question: {screen:QuestionPage, 
     navigationOptions:{tabBarLabel:'Domande'}},
   Group:{screen:GroupPage,
-    navigationOptions:{tabBarLabel:'Gruppi'}}
+    navigationOptions:{tabBarLabel:'Gruppi'}},
+  Chat:{screen:Chat,
+    navigationOptions:{tabBarLabel:'Chat'}}
 }, {
   tabBarPosition:'bottom',
   tabBarOptions:{
