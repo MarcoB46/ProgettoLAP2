@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { subscribe, unsubscribe } from '../Actions/usrActions';
 //import {} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
-//impostare il corso selezionato da qua
+//impostare il corso selezionato da qua 
+    subscribed: state.usrReducer.subscribed
 })
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-     //azioni per impostare favoriti e notifiche 
+     subscribe:()=>{dispatch(subscribe('subject'))},
+     unsubscribe:()=>{dispatch(unsubscribe('subject'))}
   }
 }
 
@@ -18,30 +21,24 @@ class HeaderButtonsComponent extends Component {
 
   constructor(props){
     super(props);
-    this.onPressHandler=this.onPressHandler.bind(this);
     this.state={
-        reversedBell:false,
-        reversedHeart:false
+        reversedBell: this.props.subscribed
     }
+    this.subscribe=this.subscribe.bind(this);
+    this.unsubscribe=this.unsubscribe.bind(this);
   }
 
-  onPressHandler=()=>{
+  subscribe=()=>{
+    this.props.subscribe()
+  }
 
+  unsubscribe=()=>{
+    this.props.unsubscribe()
   }
 
 render() {
     return (
         <View style={{flexDirection:'row', padding:5}}>
-            <Icon
-                underlayColor='white'
-                //raised={false}
-                name='heart'
-                type='font-awesome'
-                reverse={this.state.reversedHeart}
-                raised
-                size={22}
-                color='#F44336'
-                onPress={() => this.setState({reversedHeart: !this.state.reversedHeart})} /> 
             <Icon
                 underlayColor='white'
                 //raised={false}
@@ -51,7 +48,14 @@ render() {
                 raised
                 size={22}
                 color='#FF9800'
-                onPress={() => this.setState({reversedBell: !this.state.reversedBell})} /> 
+                onPress={() => {
+                    this.setState({reversedBell: !this.state.reversedBell})
+                    if(this.state.reversedBell){
+                        this.props.unsubscribe();
+                    }else{
+                        this.props.subscribe();
+                            }     //TODO , INSERIRE CONTROLLO INIZIALE PER CAPIRE SE SI è GIà SOTTOSCRITTI O MENO .
+                    }} /> 
                 
         </View>
     )

@@ -2,7 +2,7 @@ import firebase from '../Common/firebase';
 import * as actionTypes from '../Common/actionTypes';
 var ImagePicker = require('react-native-image-picker');
 
-export const checkLogIn = (callback)=>{
+export const checkLogIn = (callback,target='MiddleStackScreen')=>{
     return (dispatch, getState)=>{
         if(!getState().usrReducer.authListener){
             dispatch({type:actionTypes.START_LOADING});
@@ -18,7 +18,7 @@ export const checkLogIn = (callback)=>{
     
                     dispatch({type:actionTypes.STOP_LOADING});
                     dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
-                    if(getState().usrReducer.EOI) callback('MiddleStackScreen')
+                    if(getState().usrReducer.EOI) callback(target)
                     else callback('UserProfileInit');
                 } else {
                     // No user is signed in.
@@ -170,6 +170,31 @@ export const removePhoto= (param) =>{
         }
         if(param.target === 'postPhotosAll'){
             dispatch({type:actionTypes.REMOVE_POST_PHOTOS});
+        }
+    }
+}
+
+export const subscribe =(target, param=null) =>{
+    return ( dispatch, getState) =>{
+        if(target==='post'){//da completare
+            firebase.messaging().subscribeToTopic( param ) 
+            dispatch({type:actionTypes.SUBSCRIBE_POST, payload: param});           
+        }else if(target==='subject'){
+            firebase.messaging().subscribeToTopic(getState().databaseReducer.selectedSubject)
+            dispatch({type:actionTypes.SUBSCRIBE_SUBJECT, payload: getState().databaseReducer.selectedSubject});
+            dispatch({type:actionTypes.SET_SUBSCRIBED_BOOL, payload:true});
+        }
+    }
+}
+export const unsubscribe =(target, param=null) =>{
+    return ( dispatch, getState) =>{
+        if(target==='post'){
+            firebase.messaging().unsubscribeFromTopic( param ) 
+            dispatch({type:actionTypes.UNSUBSCRIBE_POST, payload: param});           
+        }else if(target==='subject'){
+            firebase.messaging().unsubscribeFromTopic(getState().databaseReducer.selectedSubject)
+            dispatch({type:actionTypes.UNSUBSCRIBE_SUBJECT, payload: getState().databaseReducer.selectedSubject});
+            dispatch({type:actionTypes.SET_SUBSCRIBED_BOOL, payload:false});
         }
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {TabNavigator, StackNavigator} from 'react-navigation';
+import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
 import store from './src/Store/store';
 import SignIn from './src/Containers/signInContainer';
 import LogIn from './src/Containers/loginContainer';
@@ -15,7 +15,8 @@ import HeaderButtons from './src/Common/headerButtons';
 import NewQuestion from './src/Containers/newQuestionContainer';
 import ElementDetail from './src/Containers/elementDetailContainer';
 import NewGroup from './src/Containers/newGroupContainer';
-
+import { Icon } from 'react-native-elements';
+import UpdateProfile from './src/Containers/updateProfileContainer';
 
 const MainTabScreen = TabNavigator({
   Question: {screen:QuestionPage, 
@@ -72,6 +73,28 @@ const MiddleStackScreen=StackNavigator({
   }
 })
 
+//forse sostituire al posto di middlestackscreen in mainstack
+const DrawerNav=DrawerNavigator({
+  Home:{
+    screen:MiddleStackScreen, 
+    navigationOptions:{
+      drawerLabel:'Corso',
+      drawerIcon: ({ tintColor }) => (
+        <Icon name='university' type='font-awesome' />
+      )
+    }
+  },
+  ProfileSettings:{
+    screen: UpdateProfile,
+    navigationOptions:{
+      drawerLabel:'Modifica Profilo e Preferenze',
+      drawerIcon:({tintcolo})=>(
+        <Icon name='user-circle' type='font-awesome' />        
+      )
+    },
+  }
+})
+
 const MainStack = StackNavigator({
   LogIn:{
     screen: LogIn,
@@ -95,7 +118,7 @@ const MainStack = StackNavigator({
     })
   },
   MiddleStackScreen:{
-    screen:MiddleStackScreen,
+    screen:DrawerNav,  //old MiddleStackScreen
     navigationOptions:({navigation})=>({
       header:null,
       headerLeft: null,
@@ -113,7 +136,7 @@ export default class App extends React.Component{
       this.setState({
         rehydrated:true
       })
-    });
+    }).purge();
   }
   
   render(){

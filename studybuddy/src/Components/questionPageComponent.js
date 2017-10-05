@@ -27,7 +27,7 @@ export default class questionPageComponent extends Component {
       <View style={{flex:1}}>
         <FlatList
           style={{flex:1}}
-          data={this.props.questions}
+          data={this.props.questions} 
           ListEmptyComponent={()=>{
             return(
               <Card>
@@ -37,7 +37,9 @@ export default class questionPageComponent extends Component {
           }}
           renderItem={ ({item})=>{
             return(
-              <QuestionListElement author={item.author} avatar={item.avatar} text={item.text} key={item.key} images={item.images} data={item.date} comments={item.comments} callback={navigate}/>
+              <QuestionListElement author={item.author} avatar={item.avatar} 
+                text={item.text} type={item.type} _key={item._key} 
+                images={item.images} date={item.date} comments={item.comments} callback={navigate}/>
               )
           }}
           keyExtractor={(item, index)=> index}

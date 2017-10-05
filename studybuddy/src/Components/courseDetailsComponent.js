@@ -4,6 +4,7 @@ import SectionListElement from '../Common/sectionListElement'
 import HeaderSectionList from '../Common/headerSectionList'
 import {Spinner} from '../Common/spinner'
 import {Card, Text as CustomText} from 'react-native-elements'
+import firebase from '../Common/firebase'
 
 export default class courseDetailsComponent extends Component {
 
@@ -11,6 +12,19 @@ export default class courseDetailsComponent extends Component {
     super(props);
 
   }
+  
+componentWillMount = () => {
+  firebase.messaging().getInitialNotification()
+  .then((notification) => {
+    console.log('Notification which opened the app: ', notification);
+  });
+  
+  firebase.messaging().onMessage((message) => {
+      console.log('notifica durante app in foreground ', message);
+      
+    });
+}
+
   
   componentDidMount = () => {
     this.props.fetchCourseDetails();

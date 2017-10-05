@@ -5,12 +5,13 @@ import MapView from 'react-native-maps';
 import RNGooglePlaces from 'react-native-google-places';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
+import momentITA from 'moment/locale/it';
 
 export default class NewGroupComponent extends Component {
 
     constructor(props){
         super(props);
-        moment.locale('it');
+        moment.updateLocale('it', momentITA);
         this.state = {
             text:'',
             place:{
@@ -22,7 +23,8 @@ export default class NewGroupComponent extends Component {
                 placeGID:null
             }, 
             numberOfPersons:1,
-            targetDate: {date:moment().add(1,'h').format('MMMM Do YYYY, HH:mm') , millis: 0 }
+            targetDate: {date:moment().add(1,'h').format('MMMM Do YYYY, HH:mm') , millis: 0 },
+            placeBool:false
         }
         //this.submitHandler=this.submitHandler.bind(this);
         this.openSearchModal=this.openSearchModal.bind(this);
@@ -31,6 +33,7 @@ export default class NewGroupComponent extends Component {
     openSearchModal() {
         RNGooglePlaces.openPlacePickerModal() //controllare questo :: https://github.com/tolu360/react-native-google-places
         .then((place) => {
+            this.setState({placeBool:true})
             console.log(place);
             this.setState({
                 place:{
@@ -48,26 +51,18 @@ export default class NewGroupComponent extends Component {
     
 
     submitHandler = ()=>{
-        if(this.state.text==='' && this.state.place==={
-            placeName:'',
-            placeLatLng:{
-                lat:null,
-                lng:null
-            },
-            placeGID:null
-            }){ //filtro superficiale
+        if(this.state.text==='' || !this.state.placeBool  ){ //filtro superficiale
             Alert.alert('Attenzione', 'Compila prima tutti i campi !')
         }else{
             var toSend={
                 text:this.state.text,
-                date:Date.now(),
+                date:moment().format('MMMM Do YYYY, HH:mm'),
                 type:'g',
                 placeName:this.state.place.placeName,
                 placeLatLng:this.state.place.placeLatLng,
                 placeGID:this.state.place.placeGID,
                 numberOfPersons:this.state.numberOfPersons,
-                targetDate:this.state.targetDate
-                
+                targetDate:this.state.targetDate    
             }
             this.props.sendPost(toSend);
             const {goBack} = this.props.navigation;
@@ -155,6 +150,11 @@ export default class NewGroupComponent extends Component {
                         }}
                         onDateChange={(date) => {
                             //dalla data a unix e viceversa 
+                            if(moment(date, 'MMMM Do YYYY, HH:mm').isBefore(moment())) {
+                                alert('Non puoi creare incontri nel passato !')
+                                return
+                            }
+
                             console.log('date ::::: ',moment(date, 'MMMM Do YYYY, HH:mm').unix(), '   ', moment.unix(moment(date, 'MMMM Do YYYY, HH:mm').unix()).format("MMMM Do YYYY, HH:mm") )
                             this.setState({targetDate: {date:date, millis:moment(date, 'MMMM Do YYYY, HH:mm').unix() }})}}
                     />

@@ -1,22 +1,23 @@
 const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
-const _ = require('lodash');
+
 
 admin.initializeApp(functions.config().firebase);
 
 exports.sendNewMessageNotification = 
-    functions.database.ref(`users/messages/{mid}`).onWrite((event) => {
+    functions.database.ref(`post/{course}/{subject}/{type}/{groupKey}`).onCreate((event) => {
 
     console.log(event);
 
        return admin.messaging()
-        .sendToTopic('main', {
+        .sendToTopic(event.params.subject, {
             notification:{
-                title:`${event.data.val().author} ha commentato in main`,
+                title:(event.params.type==='g'? `${event.data.val().author} ha creato un nuovo gruppo`: `${event.data.val().author} ha creato un nuovo post` ),
                 body:`${ event.data.val().text }`,
                 sound:'default',
-                color:'#ff0000'
+                color:'#ff0000',
+                icon:`${event.data.val().avatar}`
             }
         })
         .then((result)=>{

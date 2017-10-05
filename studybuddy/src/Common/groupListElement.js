@@ -11,11 +11,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    setDetailParameters: (param)=>{dispatch(setDetailParameters(param))}
+      setDetailParameters: (param)=>{dispatch(setDetailParameters(param))}
   }
 }
 
-class QuestionListElementComponent extends Component {
+class GroupListElementComponent extends Component {
 
   constructor(props){
     super(props);
@@ -30,17 +30,26 @@ class QuestionListElementComponent extends Component {
     this.setState({modalImageVisible: visible, detailURI:uri });
   }
 
+  
+
   render() {
     return (
         <View style={{marginBottom:'4%'}}>
             <Card>
                 <TouchableHighlight onPress={ ()=> {
-                    this.props.setDetailParameters({ text:this.props.text, avatar:this.props.avatar,
-                     author:this.props.author,images:this.props.images , comments:this.props.comments, type:this.props.type,
-                     date:this.props.date , _key:this.props._key});
-                     this.props.callback('ElementDetail');
-                    } }
-                    underlayColor='#3F51B5AA' >   
+                    console.log('====================================');
+                    console.log('elemento premuto ::: ', this.props._key);
+                    console.log('====================================');
+                    this.props.setDetailParameters({ 
+                        text:this.props.text, 
+                        avatar:this.props.avatar, author:this.props.author, 
+                        comments:this.props.comments, date:this.props.date , 
+                        numberOfPersons: this.props.numberOfPersons, LatLng:this.props.LatLng,
+                        targetDate:this.props.targetDate, placeGID:this.props.placeGID,
+                        placeName:this.props.placeName, _key:this.props._key, type:this.props.type
+                    });
+                    this.props.callback('ElementDetail');
+                    } } underlayColor='#3F51B5AA' >   
                     <View>
                         <View style={{flexDirection:'row', marginBottom:'3%'}}>
                             <Avatar
@@ -55,36 +64,30 @@ class QuestionListElementComponent extends Component {
                         <Text ellipsizeMode='tail' numberOfLines={6} > 
                             {this.props.text}
                         </Text>
+                        <View
+                            style={{
+                                marginTop:10, 
+                                borderBottomColor: 'black',
+                                borderBottomWidth: 1,
+                            }}
+                            />
+                        <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:20}}>
+                            <Text ellipsizeMode='tail' numberOfLines={1} style={{ flex:1}} > 
+                                {this.props.placeName} 
+                            </Text>
+                            
+                            <Text ellipsizeMode='tail' numberOfLines={1}  style={{flex:1, textAlign:'right'}}> 
+                            {this.props.targetDate.date}
+                            </Text>
+                        </View>
+
+
                     </View>
                     
-                </TouchableHighlight>
-           
-                    {
-                        this.props.images
-                        ?
-                        <FlatList
-                            data={this.props.images}
-                            renderItem={({item}) => {
-                                return(
-                                    <TouchableHighlight 
-                                        onPress={() => {
-                                            this.setModalVisible(!this.state.modalImageVisible, item.source)
-                                        }}
-                                        underlayColor='#3F51B5AA'    
-                                    >
-                                        <Image source={{uri: item.source}} resizeMethod='resize' resizeMode='cover' style={{width: 200, height:200 , margin:10 }}/>
-                                    </TouchableHighlight>
-                                    )}}
-                            horizontal={true}
-                            keyExtractor={(item, index)=> index}
-                        />
-                        :
-                        null
-                    }
-            
+                </TouchableHighlight>            
                 <View style={{marginTop:'4%'}}>
                     <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
-                        <Text>Risposte : {this.props.comments ? this.props.comments.lenght() : 0 } </Text>
+                        <Text> 1/{this.props.numberOfPersons+1} </Text>
                     </Badge>
                 </View> 
             </Card>
@@ -95,7 +98,7 @@ class QuestionListElementComponent extends Component {
                 onRequestClose={()=>{console.log('request close')}}
             >
                 <View style={{flex:1, backgroundColor:'#3F51B5AA'}}>
-                    <Image source={{uri: this.state.detailURI}} resizeMethod='resize' resizeMode='contain' style={{flex:1}}/>
+                    <Image source={{uri: this.state.detailURI}} resizeMethod='resize' resizeMode='cover' style={{flex:1}}/>
                     <Icon
                         underlayColor='white'
                         name='arrow-left'
@@ -115,5 +118,5 @@ class QuestionListElementComponent extends Component {
   }
 }
 
-const QuestioListElement = connect(mapStateToProps, mapDispatchToProps)(QuestionListElementComponent)
-export default QuestioListElement;
+const GroupListElement = connect(mapStateToProps, mapDispatchToProps)(GroupListElementComponent)
+export default GroupListElement;

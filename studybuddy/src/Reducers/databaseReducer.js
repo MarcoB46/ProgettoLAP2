@@ -7,7 +7,8 @@ const initialState ={
     groups:[],
     selectedCourse:null, 
     selectedSubject:null,
-    isLoading:false
+    isLoading:false,
+    parameters:{},
 }
 
 const databaseReducer = (state=initialState, action)=>{
@@ -30,12 +31,15 @@ const databaseReducer = (state=initialState, action)=>{
         case actionType.SET_SELECTED_SUBJECT:
             return Object.assign({},state, {selectedSubject: action.payload});
         
-            case actionType.SET_QUESTIONS:
+        case actionType.SET_QUESTIONS:
             return Object.assign({}, state, {questions: action.payload});
-        
-            case actionType.SET_COURSES:
+    
+        case actionType.SET_GROUPS:
             return Object.assign({}, state, {groups: action.payload});
-
+        
+        case actionType.SET_PARAMETERS:
+            return Object.assign({}, state, {parameters:action.payload});
+            
         default:
             return state;
     }

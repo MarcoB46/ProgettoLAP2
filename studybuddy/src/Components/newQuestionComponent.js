@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, FlatList , ScrollView , Image, TouchableHighlight, Alert} from 'react-native';
-import {Card, FormInput, Avatar, Button} from 'react-native-elements';
+import {Card, FormInput, Avatar, Button, Icon} from 'react-native-elements';
+import moment from 'moment';
+import momentITA from 'moment/locale/it';
 
 export default class NewQuestionComponent extends Component {
 
@@ -14,6 +16,7 @@ export default class NewQuestionComponent extends Component {
         this.state = {
             text:''
         }
+        moment.updateLocale('it', momentITA);
         this.submitHandler=this.submitHandler.bind(this);
     }
 
@@ -23,7 +26,7 @@ export default class NewQuestionComponent extends Component {
         }else{
             var toSend={
                 text:this.state.text,
-                date:Date.now(),
+                date: moment().format('MMMM Do YYYY, HH:mm'), 
                 type:'q'
             }
             this.props.sendPost(toSend);
@@ -70,14 +73,23 @@ export default class NewQuestionComponent extends Component {
                         data={this.props.postPhoto}
                         renderItem={({item, index}) => {
                             return(
-                                <TouchableHighlight 
-                                        onLongPress={() => {
-                                         this.props.removePhoto({target:'postPhoto',index:index})
-                                        }}
-                                        underlayColor='#3F51B5AA'    
-                                    >
+                                    <View style={{backgroundColor:'#C5CAE9'}}>
+
                                     <Image source={{uri: item.source}} resizeMethod='auto' resizeMode='contain' style={{width: 300, height:300 , margin:10 }}/>
-                                </TouchableHighlight>
+                                    <Icon
+                                        underlayColor='white'
+                                        name='times'
+                                        type='font-awesome'
+                                        reverse
+                                        raised
+                                        size={15}
+                                        color='#F44336'
+                                        containerStyle={{position:'absolute', top: 5,left:5}}
+                                        onPress={()=>{ 
+                                            console.log('premuto')
+                                            this.props.removePhoto({target:'postPhoto',index:index}) }}
+                                        /> 
+                                    </View>
                                 )}}
                         horizontal={true}
                         keyExtractor={(item, index)=> index}
