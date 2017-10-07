@@ -102,7 +102,7 @@ export default class NewQuestionComponent extends Component {
                         small
                         icon={{name: 'paper-plane', type: 'font-awesome'}}
                         backgroundColor='#2196F3'
-                        title='Posta Domanda' 
+                        title='Posta Avviso' 
                         onPress={()=>{
                             this.submitHandler();
                         }}

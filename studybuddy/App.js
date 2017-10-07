@@ -58,7 +58,7 @@ const MiddleStackScreen=StackNavigator({
     navigationOptions:({navigation})=>({
       headerTintColor:'white',
       headerStyle:{backgroundColor:'#3F51B5'},
-      title:'Nuova Domanda:'
+      title:'Nuovo Avviso :'
     })
   },
   
