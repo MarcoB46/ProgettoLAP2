@@ -29,14 +29,6 @@ export default class signInComponent extends Component {
     return (
       <View  style={{justifyContent:'center', flex:1, justifyContent: 'space-around', backgroundColor:'#1A237E'}}>
         <View>
-          {/* <Icon
-            raised
-            name='graduation-cap'
-            type='font-awesome'
-            
-            color='#03A9F4'
-            containerStyle={{ alignSelf:'center'}}
-            /> */}
           <Text h1 style={{alignSelf:'center', color:'white'}} > Benvenuto ! </Text>
         </View>
 
@@ -79,7 +71,6 @@ export default class signInComponent extends Component {
               <View>
                 <FormLabel>Password</FormLabel>
                 <FormInput 
-                  //containerStyle={{marginRight:50, width:'68%'}}
                   onChangeText={(text)=>{
                     this.setState({
                       password:text
@@ -93,17 +84,14 @@ export default class signInComponent extends Component {
               title='Registrati'
               backgroundColor='#03A9F4'
               onPress= {()=>{
-                var user ={mail:this.state.mail,password: this.state.password}
-                this.props.signIn(user, this.resetNavigation)
+                if(this.state.mail!=='' && this.state.password!==''){
+                  var user ={mail:this.state.mail,password: this.state.password}
+                  this.props.signIn(user, this.resetNavigation)
+                }
               }}
               containerViewStyle={{marginTop:'5%', borderRadius:30}}
               borderRadius={30}
           ></Button>
-          {/* <SocialIcon
-            title='Sign In With Facebook'
-            button
-            type='facebook'
-          />*/}
         </Card> 
       </View>
     )

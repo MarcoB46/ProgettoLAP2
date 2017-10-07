@@ -15,6 +15,10 @@ export default class groupsPageComponent extends Component {
   componentWillMount = () => {
     this.props.startGroupsFetch()
   }
+  componentWillUnmount = () => {
+    this.props.stopGroupsFetch()
+  }
+  
 
   render() {
     if(this.props.isLoading){
@@ -44,10 +48,12 @@ export default class groupsPageComponent extends Component {
                 callback={navigate} 
                 date={item.date} 
                 numberOfPersons={item.numberOfPersons} 
-                LatLng={item.placeLatLng}
+                LatLng={item.LatLng}
                 targetDate={item.targetDate}
                 placeGID={item.placeGID}
                 placeName={item.placeName}
+                buddyList={item.buddyList}
+                userUID={item.userUID}
               />
               )
           }}

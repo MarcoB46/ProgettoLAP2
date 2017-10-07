@@ -8,20 +8,17 @@ export const checkLogIn = (callback,target='MiddleStackScreen')=>{
             dispatch({type:actionTypes.START_LOADING});
             const stopAuthListener = firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    // User is signed in.
-                    var userInfo = { // modificare questa parte se utilizzero redux persist
+                    var userInfo = { 
                         mail: user.email,
                         userName: user.displayName,
                         id:user.uid,
                         photoURL:user.photoURL
                     }
-    
                     dispatch({type:actionTypes.STOP_LOADING});
                     dispatch({ type:actionTypes.USER_LOGGED, payload:userInfo })
                     if(getState().usrReducer.EOI) callback(target)
                     else callback('UserProfileInit');
                 } else {
-                    // No user is signed in.
                     dispatch({type: actionTypes.NO_USER}); 
                     dispatch({type:actionTypes.STOP_LOADING});
                 }
@@ -176,7 +173,7 @@ export const removePhoto= (param) =>{
 
 export const subscribe =(target, param=null) =>{
     return ( dispatch, getState) =>{
-        if(target==='post'){//da completare
+        if(target==='post'){
             firebase.messaging().subscribeToTopic( param ) 
             dispatch({type:actionTypes.SUBSCRIBE_POST, payload: param});           
         }else if(target==='subject'){
@@ -188,7 +185,7 @@ export const subscribe =(target, param=null) =>{
 }
 export const unsubscribe =(target, param=null) =>{
     return ( dispatch, getState) =>{
-        if(target==='post'){
+        if(target==='post'){ 
             firebase.messaging().unsubscribeFromTopic( param ) 
             dispatch({type:actionTypes.UNSUBSCRIBE_POST, payload: param});           
         }else if(target==='subject'){
@@ -196,5 +193,20 @@ export const unsubscribe =(target, param=null) =>{
             dispatch({type:actionTypes.UNSUBSCRIBE_SUBJECT, payload: getState().databaseReducer.selectedSubject});
             dispatch({type:actionTypes.SET_SUBSCRIBED_BOOL, payload:false});
         }
+    }
+}
+
+export const logOut = (callback, target) =>{
+    return(dispatch)=>{
+        dispatch({type:'VOID'});
+        
+        firebase.auth().signOut()
+        .then(() => {
+          console.log('logOut riuscito');
+          callback(target);
+        })
+        .catch(error => {
+            console.log('errore logOut :: ', error);
+        });
     }
 }

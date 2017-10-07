@@ -1,11 +1,11 @@
 import * as actionType from '../Common/actionTypes';
 import {REHYDRATE} from 'redux-persist/constants';
-
+import {DEFAULT_AVATAR} from '../Common/const'
 const initialState = {
     user:{
         userName:'',
         mail:'',
-        photoURL:'',
+        photoURL:DEFAULT_AVATAR,
         id:'',
     },
     isLoading: false,
@@ -30,7 +30,7 @@ const usrReducer = (state=initialState, action)=>{
             return Object.assign({}, state, {user:action.payload});
         
         case actionType.NO_USER:
-            return Object.assign({}, state, { user:{  } , authListener:null });
+            return Object.assign({}, initialState );
         
         case actionType.UPDATE_PROFILE:
             return Object.assign({}, state, {user:{...state.user,...action.param}});

@@ -1,17 +1,18 @@
 import { connect } from 'react-redux'
 import ChatComponent from '../Components/chatComponent'
-
+import { startChatFetch, stopChatFetch, sendMessage} from '../Actions/databaseActions'
 
 const mapStateToProps = (state) => ({
     user:state.usrReducer.user,
     isLoading: state.databaseReducer.isLoading,
-    selectedCourse:state.databaseReducer.selectedCourse,
-    selectedSubject:state.databaseReducer.selectedSubject,
+    messages: state.databaseReducer.messaggi,
 })
 
 const mapDispatchToProps =  (dispatch)=> {
     return {
-        
+        startChatFetch:()=>{dispatch(startChatFetch())},
+        stopChatFetch:()=>{dispatch(stopChatFetch())},
+        sendMessage:(messages)=>{dispatch(sendMessage(messages))}
     }
 }
 

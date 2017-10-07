@@ -10,7 +10,7 @@ import GroupPage from './src/Containers/groupsPageContainer';
 import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, View, Text} from 'react-native';
 import HeaderButtons from './src/Common/headerButtons';
 import NewQuestion from './src/Containers/newQuestionContainer';
 import ElementDetail from './src/Containers/elementDetailContainer';
@@ -18,11 +18,12 @@ import NewGroup from './src/Containers/newGroupContainer';
 import { Icon } from 'react-native-elements';
 import UpdateProfile from './src/Containers/updateProfileContainer';
 import Chat from './src/Containers/chatContainer';
+import UserDetailView from './src/Common/userDetailView';
 
 
 const MainTabScreen = TabNavigator({
   Question: {screen:QuestionPage, 
-    navigationOptions:{tabBarLabel:'Domande'}},
+    navigationOptions:{tabBarLabel:'Avvisi'}},
   Group:{screen:GroupPage,
     navigationOptions:{tabBarLabel:'Gruppi'}},
   Chat:{screen:Chat,
@@ -97,6 +98,10 @@ const DrawerNav=DrawerNavigator({
       )
     },
   }
+}, {
+  contentComponent:  (props) =>
+    <UserDetailView params={props} />
+  
 })
 
 const MainStack = StackNavigator({
@@ -140,7 +145,7 @@ export default class App extends React.Component{
       this.setState({
         rehydrated:true
       })
-    }).purge();
+    });
   }
   
   render(){

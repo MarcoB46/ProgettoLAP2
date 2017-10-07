@@ -84,8 +84,11 @@ export default class componentName extends Component {
             title='Accedi'
             backgroundColor='#03A9F4'
             onPress= {()=>{
-              var user ={mail:this.state.mail,password: this.state.password}
-              this.props.attemptLogIn(user, this.resetNavigation)
+              if(this.state.mail!=='' && this.state.password!==''){
+                var user ={mail:this.state.mail,password: this.state.password}
+                this.props.attemptLogIn(user, this.resetNavigation)
+              }
+
             }}
             containerViewStyle={{marginTop:'5%', borderRadius:30}}
             borderRadius={30}

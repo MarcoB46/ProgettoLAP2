@@ -14,6 +14,7 @@ export default class ElementDetailComponent extends Component {
         detailURI:'',
         modalImageVisible:false,
         modalMapVisible:false,
+        modalBuddyVisible:false,
         lat: this.props.parameters.LatLng ? this.props.parameters.LatLng.lat : 37.52 ,
         lng : this.props.parameters.LatLng ? this.props.parameters.LatLng.lng : 15.07,
         date:this.props.parameters.date
@@ -24,6 +25,9 @@ export default class ElementDetailComponent extends Component {
   }
 
 
+  setBuddyListModalVisible(visible){
+      this.setState({modalBuddyVisible: visible})
+  }
   setImageModalVisible(visible, uri='') {
     this.setState({modalImageVisible: visible, detailURI:uri });
   }
@@ -33,7 +37,9 @@ export default class ElementDetailComponent extends Component {
 
 
   render() {
+    
       var {parameters} = this.props;
+      console.log('confronto ::::: ', parameters.userUID , " locale ::" , this.props.uid)
     if(this.props.isLoading){
         return <Spinner/>
     }else
@@ -61,7 +67,11 @@ export default class ElementDetailComponent extends Component {
                   
                 </ScrollView>
                 {
-                       parameters.type === 'g'? (
+                    
+                       parameters.type === 'g' && parameters.userUID!== this.props.uid  ? (
+
+                        ( parameters.buddyList && parameters.buddyList.findIndex(element => element.uid===this.props.uid) == -1 ) || ( !parameters.buddyList )
+                            ?
                         <Button
                             title='Partecipa' //inserire un controllo se si sta partecipando o meno
                             containerViewStyle={{marginTop:10 }}
@@ -69,7 +79,26 @@ export default class ElementDetailComponent extends Component {
                             icon={{name: 'ticket', type: 'font-awesome'}}
                             backgroundColor='#FF9800'
                             onPress={()=>{
-                                this.props.joinGroup();
+                               
+                                if(((parameters.numberOfPersons+1) > parameters.buddyList.length) || (parameters.numberOfPersons == 10)){
+                                
+                                    this.props.joinGroup();
+                                    this.props.subscribe('post', parameters._key);
+                                }else{
+                                    alert('È stato raggiunto il limite di persone richiesto dal creatore del post!')
+                                }
+                            }}
+                         />
+                            :
+                        <Button
+                            title='Lascia Gruppo' 
+                            containerViewStyle={{marginTop:10 }}
+                            small
+                            icon={{name: 'ticket', type: 'font-awesome'}}
+                            backgroundColor='#F44336'
+                            onPress={()=>{
+                               this.props.leaveGroup();
+                               this.props.unsubscribe( 'post', parameters._key );
                             }}
                          />
                        ):null
@@ -95,6 +124,17 @@ export default class ElementDetailComponent extends Component {
                                     backgroundColor='#2196F3'
                                     onPress={()=>{
                                         this.setMapModalVisible(true)
+                                    }}
+                                />
+
+                                <Button
+                                    title='Guarda lista partecipanti' //inserire un controllo se si sta partecipando o meno
+                                    containerViewStyle={{marginTop:10 }}
+                                    small
+                                    icon={{name: 'list-ul', type: 'font-awesome'}}
+                                    backgroundColor='#2196F3'
+                                    onPress={()=>{
+                                        this.setBuddyListModalVisible(true)
                                     }}
                                 />
                             </View>
@@ -130,9 +170,14 @@ export default class ElementDetailComponent extends Component {
 
             
               <View style={{marginTop:'4%', flexDirection:'row', justifyContent:'space-between'}}>
-                  <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
-                      <Text>Risposte : {parameters.comments ? parameters.comments.lenght() : 0 } </Text>
-                  </Badge>
+                {
+                    parameters.buddyList ?
+                        <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
+                            <Text> { 'Partecipano in : '+ parameters.buddyList.length } </Text>
+                        </Badge>
+                        : null
+                }
+                  
                   <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
                       <Text> {this.state.date} </Text>
                   </Badge>
@@ -197,6 +242,51 @@ export default class ElementDetailComponent extends Component {
                 /> 
             </View>
           </Modal>
+
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalBuddyVisible}
+              onRequestClose={()=>{console.log('request close')}}
+            >
+           
+            <View style={{flex:1,flexDirection:'row',
+                            alignItems:'center',
+                            justifyContent:'center'}}>
+                            <ScrollView>
+                            <FlatList
+                                    data={parameters.buddyList}
+                                    renderItem={({item}) => {
+                                        return(
+                                            <View style={{flexDirection:'row', alignItems:'center', marginBottom:'3%'}}>
+                                                <Avatar
+                                                        large
+                                                        rounded
+                                                        source={{uri: item.avatar}}
+                                                        
+                                                        containerStyle={{justifyContent:'flex-start', backgroundColor:'#03A9F4'}}
+                                                    />
+                                                <CustomText h4 style={{flex:1, textAlign:'center', marginLeft:'2%'}} > {item.userName} </CustomText>
+                                            </View>
+                                            )}}
+                                    
+                                    keyExtractor={(item, index)=> index}
+                                />
+                            </ScrollView>
+                <Icon
+                    underlayColor='white'
+                    name='arrow-left'
+                    type='font-awesome'
+                    reverse
+                    raised
+                    size={30}
+                    color='#F44336'
+                    containerStyle={{position:'absolute', top: 0,left:0}}
+                    onPress={()=>{ this.setBuddyListModalVisible(false) }}
+                /> 
+            </View>
+               
+            </Modal>
         </View>       
     )
   }

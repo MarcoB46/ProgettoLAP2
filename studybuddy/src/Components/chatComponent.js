@@ -1,43 +1,50 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import { GiftedChat , Send} from 'react-native-gifted-chat';
-import {Icon} from 'react-native-elements';
+import { GiftedChat , Send, Bubble} from 'react-native-gifted-chat';
+import {Icon, FormLabel} from 'react-native-elements';
 
 export default class ChatComponent extends Component {
     constructor(props){
         super(props);
         this.state={
-            messages:[] //momentaneo, usare props in futuro
+            messages:this.props.messages
         }
     }
-    
+      renderBubble(props) {
+        if (props.isSameUser(props.currentMessage, props.previousMessage) && props.isSameDay(props.currentMessage, props.previousMessage)) {
+          return (
+            <Bubble
+              {...props}
+            />
+          );
+        }
+        return (
+          <View>
+            <FormLabel>{props.currentMessage.user.name}</FormLabel>
+            <Bubble
+              {...props}
+            />
+          </View>
+        );
+      }
+
       componentWillMount() {
-        this.setState({
-          messages: [
-            {
-              _id: 1,
-              text: 'Hello developer',
-              createdAt: new Date(),
-              user: {
-                _id: 2,
-                name: 'React Native',
-                avatar: 'https://facebook.github.io/react/img/logo_og.png',
-              },
-            },
-          ],
-        });
+        this.props.startChatFetch();
       }
     
-      onSend(messages = []) {
-        this.setState((previousState) => ({
-          messages: GiftedChat.append(previousState.messages, messages),
-        }));
+      componentWillUnmount = () => {
+        this.props.stopChatFetch();
+      }
+      
+
+      onSend(message = []) {
+        this.props.sendMessage(GiftedChat.append(this.props.messages, message));
       }
     
       render() {
         return (
           <GiftedChat
-            messages={this.state.messages}
+            messages={this.props.messages}
             placeholder='Scrivi qualcosa ... '
             onSend={(messages) => this.onSend(messages)}
             user={{
@@ -57,6 +64,7 @@ export default class ChatComponent extends Component {
                     </Send>
                 );
             }}
+            renderBubble={this.renderBubble}
           />
         );
       }

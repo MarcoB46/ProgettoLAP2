@@ -5,10 +5,14 @@ const initialState ={
     materie:[],
     questions:[],
     groups:[],
+    messaggi:[],
     selectedCourse:null, 
     selectedSubject:null,
     isLoading:false,
     parameters:{},
+    chat_ref:null,
+    post_ref:null,
+    groups_ref:null
 }
 
 const databaseReducer = (state=initialState, action)=>{
@@ -39,6 +43,18 @@ const databaseReducer = (state=initialState, action)=>{
         
         case actionType.SET_PARAMETERS:
             return Object.assign({}, state, {parameters:action.payload});
+
+        case actionType.SET_POST_REF:
+            return Object.assign({}, state, {post_ref:action.payload});
+
+        case actionType.SET_GROUPS_REF:
+            return Object.assign({}, state, {groups_ref:action.payload});
+    
+        case actionType.SET_CHAT_REF:
+            return Object.assign({}, state, {chat_ref: action.payload});
+
+        case actionType.SET_MESSAGES:
+            return Object.assign({}, state, {messaggi:action.payload});
             
         default:
             return state;

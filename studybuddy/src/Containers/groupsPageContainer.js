@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import groupsPageComponent from '../Components/groupsPageComponent'
 import {} from '../Actions/usrActions';
-import {startGroupsFetch} from '../Actions/databaseActions';
+import {startGroupsFetch, stopGroupsFetch} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
     groups: state.databaseReducer.groups,
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        startGroupsFetch:()=>{dispatch(startGroupsFetch())}
+        startGroupsFetch:()=>{dispatch(startGroupsFetch())},
+        stopGroupsFetch:()=>{dispatch(stopGroupsFetch())}
     }
 }
 

@@ -10,6 +10,7 @@ import { Text, View, Image , ScrollView, Picker , TouchableHighlight } from 'rea
 import { FormLabel, FormInput , Button,Card, ListItem, Avatar, Text as CustomText, FormValidationMessage } from 'react-native-elements';
 import firebase from '../Common/firebase';
 import { NavigationActions } from 'react-navigation';
+import { DEFAULT_AVATAR } from '../Common/const'
 
 export default class UpdateProfileComponent extends Component {
   constructor(props){
@@ -65,7 +66,7 @@ export default class UpdateProfileComponent extends Component {
       <View style={{justifyContent: 'space-around', flex:1}}>
         <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
 
-        { this.props.user.photoURL
+        { this.props.user.photoURL && this.props.user.photoURL!== DEFAULT_AVATAR
             ?
             <Avatar
             xlarge

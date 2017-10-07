@@ -84,7 +84,7 @@ class QuestionListElementComponent extends Component {
             
                 <View style={{marginTop:'4%'}}>
                     <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
-                        <Text>Risposte : {this.props.comments ? this.props.comments.lenght() : 0 } </Text>
+                        <Text>{this.props.date} </Text>
                     </Badge>
                 </View> 
             </Card>

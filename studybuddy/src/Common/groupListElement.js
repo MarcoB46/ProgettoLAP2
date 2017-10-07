@@ -38,7 +38,7 @@ class GroupListElementComponent extends Component {
             <Card>
                 <TouchableHighlight onPress={ ()=> {
                     console.log('====================================');
-                    console.log('elemento premuto ::: ', this.props._key);
+                    console.log('elemento premuto ::: ', this.props);
                     console.log('====================================');
                     this.props.setDetailParameters({ 
                         text:this.props.text, 
@@ -46,7 +46,8 @@ class GroupListElementComponent extends Component {
                         comments:this.props.comments, date:this.props.date , 
                         numberOfPersons: this.props.numberOfPersons, LatLng:this.props.LatLng,
                         targetDate:this.props.targetDate, placeGID:this.props.placeGID,
-                        placeName:this.props.placeName, _key:this.props._key, type:this.props.type
+                        placeName:this.props.placeName, _key:this.props._key, type:this.props.type,
+                        buddyList:this.props.buddyList, userUID:this.props.userUID
                     });
                     this.props.callback('ElementDetail');
                     } } underlayColor='#3F51B5AA' >   
@@ -87,7 +88,7 @@ class GroupListElementComponent extends Component {
                 </TouchableHighlight>            
                 <View style={{marginTop:'4%'}}>
                     <Badge containerStyle={{ backgroundColor: '#E8EAF6', alignSelf:'flex-start'}}>
-                        <Text> 1/{this.props.numberOfPersons+1} </Text>
+                        <Text> {this.props.buddyList.length}/{this.props.numberOfPersons+1} </Text>
                     </Badge>
                 </View> 
             </Card>

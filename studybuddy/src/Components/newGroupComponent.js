@@ -16,7 +16,7 @@ export default class NewGroupComponent extends Component {
             text:'',
             place:{
                 placeName:'',
-                placeLatLng:{
+                LatLng:{
                     lat:null,
                     lng:null
                 },
@@ -38,7 +38,7 @@ export default class NewGroupComponent extends Component {
             this.setState({
                 place:{
                     placeName:place.name,
-                    placeLatLng:{
+                    LatLng:{
                         lat:place.latitude,
                         lng:place.longitude
                     },
@@ -59,10 +59,16 @@ export default class NewGroupComponent extends Component {
                 date:moment().format('MMMM Do YYYY, HH:mm'),
                 type:'g',
                 placeName:this.state.place.placeName,
-                placeLatLng:this.state.place.placeLatLng,
+                LatLng:this.state.place.LatLng,
                 placeGID:this.state.place.placeGID,
                 numberOfPersons:this.state.numberOfPersons,
-                targetDate:this.state.targetDate    
+                targetDate:this.state.targetDate,
+                userUID:this.props.user.id,
+                buddyList:[{
+                    avatar:this.props.user.photoURL,
+                    uid:this.props.user.id,
+                    userName:this.props.user.userName
+                }]    
             }
             this.props.sendPost(toSend);
             const {goBack} = this.props.navigation;
@@ -83,7 +89,7 @@ export default class NewGroupComponent extends Component {
                             autoCorrect={true}
                             blurOnSubmit={false}
                             multiline={true}
-                            numberOfLines={10}
+                            numberOfLines={5}
                             onChangeText={(newText)=>{
                                 this.setState({
                                     text:newText
@@ -96,7 +102,7 @@ export default class NewGroupComponent extends Component {
                         />
                 </View>
                 <View>
-                    <Text style={{color:'#3D5AFE', margin:15, marginBottom:5}} > {this.state.place.placeName} </Text>
+                    <Text style={{color:'#3D5AFE', margin:5}} > {this.state.place.placeName} </Text>
                     <Button
                             containerViewStyle={{marginTop:'10%' }}
                             small

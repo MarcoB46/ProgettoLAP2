@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import questionPageComponent from '../Components/questionPageComponent';
 import {} from '../Actions/usrActions';
-import {startQuestionsFetch} from '../Actions/databaseActions';
+import {startQuestionsFetch, stopPostFetch} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
     questions: state.databaseReducer.questions,
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=> {
     return {
-        startQuestionsFetch: () =>{ dispatch(startQuestionsFetch()) }
+        startQuestionsFetch: () =>{ dispatch(startQuestionsFetch()) },
+        stopPostFetch:()=>{dispatch(stopPostFetch())}
     }
 }
 

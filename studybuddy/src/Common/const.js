@@ -1,0 +1,1 @@
+export const DEFAULT_AVATAR='https://firebasestorage.googleapis.com/v0/b/prjlap2mb-1505938725291.appspot.com/o/files%2Fusers%2Fdefault%2FprofileImage.png?alt=media&token=7799476f-c46b-4d14-8e65-632c91ab4dc4'

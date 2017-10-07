@@ -17,6 +17,10 @@ export default class questionPageComponent extends Component {
     this.props.startQuestionsFetch()
   }
   
+  componentWillUnmount = () => {
+    this.props.stopPostFetch();
+  }
+  
 
   render() {
     if(this.props.isLoading){
@@ -45,18 +49,18 @@ export default class questionPageComponent extends Component {
           keyExtractor={(item, index)=> index}
         />
         <Icon
-                underlayColor='white'
-                name='plus'
-                type='font-awesome'
-                reverse
-                raised
-                size={35}
-                color='#F44336'
-                containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
-                onPress={() => {
-                  navigate('NewQuestion');
-                }} 
-                /> 
+          underlayColor='white'
+          name='plus'
+          type='font-awesome'
+          reverse
+          raised
+          size={35}
+          color='#F44336'
+          containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
+          onPress={() => {
+            navigate('NewQuestion');
+          }} 
+        /> 
       </View>
     )
   }
