@@ -1,126 +1,125 @@
 const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
-const _ = require('lodash');
+
 
 admin.initializeApp(functions.config().firebase);
 
-exports.sendNewMessageNotification = 
-    functions.database.ref(`users/messages/{mid}`).onWrite((event) => {
-     
+exports.sendNewPostNotification = 
+    functions.database.ref(`post/{course}/{subject}/{type}/{postKey}`).onCreate((event) => {
 
-        
+    console.log(event);
+        const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
+        detailRef.once('value')
+            .then(snapshot =>{
+                if(snapshot.val()){
+                    snapshot.val().forEach(function(anno) {
+                        anno.materie.forEach(function(materia){
+                            if(event.params.subject===materia.codice_materia){
 
-    console.log(event.data.val());
+                                if(event.params.type==='g'){
+                                    return admin.messaging()
+                                    .sendToTopic(event.params.subject, {
+                                        notification:{
+                                            title:`${event.data.val().author} ha creato un nuovo gruppo in ${materia.nome_materia}`,
+                                            body:`${ event.data.val().text }`,
+                                            sound:'default',
+                                            color:'#ff0000',
+                                            icon:`${event.data.val().avatar}`
+                                        }
+                                    })
+                                    .then((result)=>{
+                                        console.log(result)
+                                    })
+                                    .catch((error)=>{console.log(error)})
+                                }else if(event.params.type==='q'){
+                                        return admin.messaging()
+                                    .sendToTopic(event.params.subject, {
+                                        notification:{
+                                            title:`${event.data.val().author} ha creato un nuovo post in ${materia.nome_materia}` ,
+                                            body:`${ event.data.val().text }`,
+                                            sound:'default',
+                                            color:'#ff0000',
+                                            icon:`${event.data.val().avatar}`
+                                        }
+                                    })
+                                    .then((result)=>{
+                                        console.log(result)
+                                    })
+                                    .catch((error)=>{console.log(error)})
+                                }else if(event.params.type==='chat'){
+                                    console.log('event.data in chat::', event.data.val());
+                                    return admin.messaging()
+                                    .sendToTopic(event.params.subject, {
+                                        notification:{
+                                            title:`${event.data.val().user.name} ha commentato nella chat di ${materia.nome_materia}` ,
+                                            sound:'default',
+                                            color:'#ff0000',
+                                            icon:`${event.data.val().avatar}`
+                                        }
+                                    })
+                                    .then((result)=>{
+                                        console.log(result)
+                                    })
+                                    .catch((error)=>{console.log(error)})
+                                }
+                            }
+                        })
+                    }, this);
+                }
+            })
+            .catch(error=>{console.log('errore detailRef: ', error)})
+        });
 
-       return admin.messaging()
-        .sendToTopic('main', {
-            notification:{
-                title:`${event.data.val().author} ha commentato in main`,
-                body:`${ event.data.val().text }`,
-                sound:'default',
-                color:'#ff0000'
-            }
-        })
-        .then((result)=>{
-            console.log(result)
-        })
-        .catch((error)=>{console.log(error)})
-    });
+exports.groupSubscriptionNotificationHandler=
+        functions.database.ref(`post/{course}/{subject}/g/{postKey}/buddyList`).onCreate((event)=>{
+            console.log(event);
+            const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
+            detailRef.once('value')
+                .then( snapshot=>{
+                    if(snapshot.val()){
+                        snapshot.val().forEach(function(anno){
+                            anno.materie.forEach(function(materia){
+                                if(event.params.subject === materia.codice_materia){
+                                    console.log("event.val di group subscription:: ",event.val())
+                                    return admin.messaging()
+                                        .sendToTopic(event.params.postKey, {
+                                            notification:{
+                                                title:'qualcosa',
+                                                sound:'default',
+                                                color:'#ff0000'
+                                            }
+                                        })
+                                }
+                            })
+                        })
+                    }
+                })
+                .catch( error => {console.log(error)})
+        });
 
-
-
-    // const getValuePromise = admin.database()
-    //                             // .ref('messages')
-    //                             .orderByKey()
-    //                             .limitToLast(1)
-    //                             .once('value');
-
-    //console.log(event.data.val());
-    
-    // return getValuePromise
-    //     .then((snapshot)=>{
-    //         console.log(_.values(snapshot.val())[0]);
-    //         const { text, author} = _.values(snapshot.val())[0];
-
-    //         const payload = {
-    //             notification:{
-    //                 title:`${ author } ha commentato in main`,
-    //                 body: `${ text }`,
-    //                 sound:'default',
-    //                 color: '#2196F3'
-    //             }
-    //         };
-    //         return admin.messaging()
-    //                 .sendToTopic('main', payload);
-    //     });
-
- 
-
-
-        // const getValuePromise = admin.database()
-    //                              .ref('messages')
-    //                              .orderByKey()
-    //                              .limitToLast(1)
-    //                              .once('value');
-
-    // return getValuePromise.then(snapshot => {
-    //     console.log(_.values(snapshot.val())[0]);
-    //     const { text, author } = _.values(snapshot.val())[0];
-
-    //     const payload = {
-    //         notification: {
-    //             title: 'New msg',
-    //             body: text,
-    //             //icon: author.avatar
-    //         }
-    //     };
-
-    //     return admin.messaging()
-    //                 .sendToTopic('main', payload);
-
-// //prova mia
-//     console.log(event.data.val());
-    
-//     getValuePromise = admin.database()
-//         .ref('messages')
-//         .limitToLast(1)
-//         .once('value');
-
-//     getValuePromise
-//         .then((snapshot)=>{
-//             console.log(...event.data.val()[0]);
-//             const payload={
-//                 notification:{
-//                     title:`nuovo post da ${event.data.val()[0].author}`,
-//                     body:event.data.val()[0].text
-//                 }
-//             }
-//         })
-
-//         return admin.messaging()
-//             .sendToTopic('main', payload)
-//             .then((result)=>{
-//                 console.log(result)
-//             })
-//             .catch((error)=>{
-//                 console.log(error)
-//             })
-// //fine prova mia !!!!
-
-
-    // const notification = event.data.val();
-    // const payload={
-    //     notification:{
-    //         body:formatBody(notification)
-    //     }
-    // };
-
-    // return admin.messaging()
-    //     .sendToTopic('main', payload)
-    //     .then((result)=>{
-    //         console.log(result);
-    //     })
-    //     .catch((error)=>{
-    //         console.log(error);
-    //     })
+exports.groupUnsubscriptionNotificationHandler=
+        functions.database.ref(`post/{course}/{subject}/g/{postKey}/buddyList`).onDelete((event)=>{
+            const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
+            detailRef.once('value')
+                .then( snapshot=>{
+                    if(snapshot.val()){
+                        snapshot.val().forEach(function(anno){
+                            anno.materie.forEach(function(materia){
+                                if(event.params.subject === materia.codice_materia){
+                                    console.log("event.val di group unsubscription :: ",event.val())
+                                    return admin.messaging()
+                                        .sendToTopic(event.params.postKey, {
+                                            notification:{
+                                                title:'qualcosa',
+                                                sound:'default',
+                                                color:'#ff0000'
+                                            }
+                                        })
+                                }
+                            })
+                        })
+                    }
+                })
+                .catch( error => {console.log(error)})
+        });

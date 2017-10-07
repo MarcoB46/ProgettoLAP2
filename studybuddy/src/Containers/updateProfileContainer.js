@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import UserProfileInitComponent from '../Components/userProfileInitComponent'
+import UpdateProfileComponent from '../Components/updateProfileComponent'
 import {takePhoto, setUserName, setEOI} from '../Actions/usrActions';
 import {getCourses, setCourseId} from '../Actions/databaseActions';
 
@@ -19,5 +19,5 @@ const mapDispatchToProps = (dispatch)=> {
 }
 
 
-const UserProfileInit = connect(mapStateToProps, mapDispatchToProps)(UserProfileInitComponent)
-export default UserProfileInit;
+const UpdateProfile = connect(mapStateToProps, mapDispatchToProps)(UpdateProfileComponent)
+export default UpdateProfile;

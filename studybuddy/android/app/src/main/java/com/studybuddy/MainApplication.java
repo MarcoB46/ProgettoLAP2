@@ -3,6 +3,8 @@ package com.studybuddy;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -15,6 +17,8 @@ import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+
+import com.imagepicker.ImagePickerPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,13 +35,16 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new VectorIconsPackage(),
+            new RNGooglePlacesPackage(),
+            new MapsPackage(),
+          new VectorIconsPackage(),
           new RNFirebasePackage(),
           new RNFirebaseAuthPackage(),
           new RNFirebaseRemoteConfigPackage(),
           new RNFirebaseDatabasePackage(),
           new RNFirebaseMessagingPackage(),
-          new RNFirebaseStoragePackage()
+          new RNFirebaseStoragePackage(),
+          new ImagePickerPackage()
       );
     }
   };

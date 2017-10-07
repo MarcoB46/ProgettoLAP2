@@ -1,14 +1,22 @@
+/**
+ * NOTA IMPORTANTE::
+ * questo componente è una pagina quasi  completamente uguale ad userProfileInit ,
+ * il motivo della sua esistenza è dato dal fatto che non mi è permesso navigare tra due screen innestati in due elementi 
+ * una soluzione sarebbe usare le action della navigate ( terzo parametro ), ma comunque non lo potrei utilizare dalla def della route
+ * in App.js 
+ */
 import React, { Component } from 'react'
 import { Text, View, Image , ScrollView, Picker , TouchableHighlight } from 'react-native'
 import { FormLabel, FormInput , Button,Card, ListItem, Avatar, Text as CustomText, FormValidationMessage } from 'react-native-elements';
 import firebase from '../Common/firebase';
 import { NavigationActions } from 'react-navigation';
+import { DEFAULT_AVATAR } from '../Common/const'
 
-export default class UserProfileInitComponent extends Component {
+export default class UpdateProfileComponent extends Component {
   constructor(props){
     super(props);
     this.state={
-      userName:'',
+      userName:this.props.user.userName,
       corsi:[],
       selectedCourse:'VOID', 
       errorLabelPickerVisible:false,
@@ -43,7 +51,7 @@ export default class UserProfileInitComponent extends Component {
       this.props.setUserName(this.state.userName);
       this.props.setCourseId(this.state.selectedCourse);
       this.props.setEOI(true);
-      this.resetNavigation('MiddleStackScreen'); //old MiddleStackScreen
+      this.props.navigation.navigate('MiddleStackScreen'); //old MiddleStackScreen
       //TODO, AGGIUNGERE NAVIGAZIONE ALLA NUOVA PAGINA E CARICAMENTO DEGLI ELEMENTI
     }else{
       if(this.state.userName.replace(/\s/g, '')===''){ this.setState({errorLabelUserNameVisible:true});} else{ this.setState({errorLabelUserNameVisible:false}); }
@@ -58,7 +66,7 @@ export default class UserProfileInitComponent extends Component {
       <View style={{justifyContent: 'space-around', flex:1}}>
         <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
 
-        { this.props.user.photoURL
+        { this.props.user.photoURL && this.props.user.photoURL!== DEFAULT_AVATAR
             ?
             <Avatar
             xlarge
@@ -88,7 +96,7 @@ export default class UserProfileInitComponent extends Component {
           <View>
             <FormLabel>Username</FormLabel>
             <FormInput
-
+                value={this.state.userName}
               onChangeText={(text)=>{
                 this.setState({
                   userName:text,
@@ -136,7 +144,7 @@ export default class UserProfileInitComponent extends Component {
               .catch((error)=>{console.log(error)}); */}
               this.submitHandler();
             }}
-            title='Fatto' />
+            title='Aggiorna' />
 
       </View>
     )

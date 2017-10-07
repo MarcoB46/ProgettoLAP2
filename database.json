@@ -1,0 +1,266 @@
+{
+    "INF01" : {
+      "91230":{
+        "q":[
+          {
+            "author": "ciccio",
+            "avatar": "https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png",
+            "title" : "sample question",
+            "text" : "quest è un esempio di domanda"
+          }
+        ],
+        "g":[
+          {
+            "coord" : {
+              "lat" : 37.66,
+              "lng" : 14.83
+            },
+            "author": "ciccio",
+            "avatar": "https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png",
+            "data" : "oggi 16:00",
+            "text" : "sample group description",
+            "title" : "sample group"
+          }
+        ]
+      } 
+    },
+    "corsi" : {
+      "INF01" : {
+        "nome_corso" : "Informatica",
+        "dettaglio" : [
+           {
+          "anno" : "Primo Anno",
+          "materie" : [ {
+            "nome_materia" : "Programmazione 1",
+            "codice_materia": "91230"
+          }, {
+            "nome_materia" : "Programmazione 2",
+            "codice_materia": "91234"
+          }, {
+            "nome_materia" : "Matematica Discreta",
+            "codice_materia": "91232"
+          },{
+            "nome_materia" : "Fondamenti di Informatica",
+            "codice_materia": "91229"
+          },{
+            "nome_materia" : "Elementi di Analisi Matematica",
+            "codice_materia": "91231"
+          },{
+            "nome_materia" : "Architettura degli elaboratori",
+            "codice_materia": "91233"
+          }
+         ]
+        }, {
+          "anno" : "Secondo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Algoritmi",
+              "codice_materia": "91235"
+            },{
+              "nome_materia" : "Basi di Dati",
+              "codice_materia": "91236"
+            },{
+              "nome_materia" : "Ingegneria del Software",
+              "codice_materia": "91240"
+            },{
+              "nome_materia" : "Inglese",
+              "codice_materia": "91238"
+            },{
+              "nome_materia" : "Interazione e Multimedia",
+              "codice_materia": "91237"
+            },{
+              "nome_materia" : "Reti di Calcolatori",
+              "codice_materia": "91241"
+            },{
+              "nome_materia" : "Sistemi Operativi",
+              "codice_materia": "91239"
+            }
+          ]
+        }, {
+          "anno" : "Terzo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Computer Forensics",
+              "codice_materia": "96258"
+            },          {
+              "nome_materia" : "Fisica",
+              "codice_materia": "91246"
+            },          {
+              "nome_materia" : "Internet Security",
+              "codice_materia": "96255"
+            },          {
+              "nome_materia" : "Laboratorio Avanzato di Programmazione 2",
+              "codice_materia": "96260"
+            },          {
+              "nome_materia" : "Metodi Matematici e Statistici",
+              "codice_materia": "91242"
+            },          {
+              "nome_materia" : "Sviluppo di Giochi Digitali",
+              "codice_materia": "96261"
+            },          {
+              "nome_materia" : "Tecniche di Programmazione Concorrente e Distribuita",
+              "codice_materia": "91244"
+            }
+          ]
+        }]
+      },
+      "ING01" : {
+        "nome_corso" : "Ingegneria Informatica",
+        "dettaglio" : [
+           {
+          "anno" : "Primo Anno",
+          "materie" : [ {
+            "nome_materia" : "Programmazione 1",
+            "codice_materia": "91230"
+          }, {
+            "nome_materia" : "Programmazione 2",
+            "codice_materia": "PRG2"
+          }, {
+            "nome_materia" : "Matematica Discreta",
+            "codice_materia": "91232"
+          },{
+            "nome_materia" : "Fondamenti di Informatica",
+            "codice_materia": "91230"
+          },{
+            "nome_materia" : "Elementi di Analisi Matematica",
+            "codice_materia": "91230"
+          },{
+            "nome_materia" : "Architettura degli elaboratori",
+            "codice_materia": "91230"
+          }
+         ]
+        }, {
+          "anno" : "Secondo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Algoritmi",
+              "codice_materia": "91235"
+            },{
+              "nome_materia" : "Basi di Dati",
+              "codice_materia": "91236"
+            },{
+              "nome_materia" : "Ingegneria del Software",
+              "codice_materia": "91240"
+            },{
+              "nome_materia" : "Inglese",
+              "codice_materia": "91238"
+            },{
+              "nome_materia" : "Interazione e Multimedia",
+              "codice_materia": "91237"
+            },{
+              "nome_materia" : "Reti di Calcolatori",
+              "codice_materia": "91241"
+            },{
+              "nome_materia" : "Sistemi Operativi",
+              "codice_materia": "91239"
+            }
+          ]
+        }, {
+          "anno" : "Terzo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Computer Forensics",
+              "codice_materia": "96258"
+            },          {
+              "nome_materia" : "Fisica",
+              "codice_materia": "91246"
+            },          {
+              "nome_materia" : "Internet Security",
+              "codice_materia": "96255"
+            },          {
+              "nome_materia" : "Laboratorio Avanzato di Programmazione 2",
+              "codice_materia": "96260"
+            },          {
+              "nome_materia" : "Metodi Matematici e Statistici",
+              "codice_materia": "91242"
+            },          {
+              "nome_materia" : "Sviluppo di Giochi Digitali",
+              "codice_materia": "96261"
+            },          {
+              "nome_materia" : "Tecniche di Programmazione Concorrente e Distribuita",
+              "codice_materia": "91244"
+            }
+          ]
+        }]
+      },
+      "ING02" : {
+        "nome_corso" : "Ingegneria Elettronica",
+        "dettaglio" : [
+           {
+          "anno" : "Primo Anno",
+          "materie" : [ {
+            "nome_materia" : "Programmazione 1",
+            "codice_materia": "91230"
+          }, {
+            "nome_materia" : "Programmazione 2",
+            "codice_materia": "PRG2"
+          }, {
+            "nome_materia" : "Matematica Discreta",
+            "codice_materia": "91232"
+          },{
+            "nome_materia" : "Fondamenti di Informatica",
+            "codice_materia": "91230"
+          },{
+            "nome_materia" : "Elementi di Analisi Matematica",
+            "codice_materia": "91230"
+          },{
+            "nome_materia" : "Architettura degli elaboratori",
+            "codice_materia": "91230"
+          }
+         ]
+        }, {
+          "anno" : "Secondo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Algoritmi",
+              "codice_materia": "91235"
+            },{
+              "nome_materia" : "Basi di Dati",
+              "codice_materia": "91236"
+            },{
+              "nome_materia" : "Ingegneria del Software",
+              "codice_materia": "91240"
+            },{
+              "nome_materia" : "Inglese",
+              "codice_materia": "91238"
+            },{
+              "nome_materia" : "Interazione e Multimedia",
+              "codice_materia": "91237"
+            },{
+              "nome_materia" : "Reti di Calcolatori",
+              "codice_materia": "91241"
+            },{
+              "nome_materia" : "Sistemi Operativi",
+              "codice_materia": "91239"
+            }
+          ]
+        }, {
+          "anno" : "Terzo Anno",
+          "materie" : [
+            {
+              "nome_materia" : "Computer Forensics",
+              "codice_materia": "96258"
+            },          {
+              "nome_materia" : "Fisica",
+              "codice_materia": "91246"
+            },          {
+              "nome_materia" : "Internet Security",
+              "codice_materia": "96255"
+            },          {
+              "nome_materia" : "Laboratorio Avanzato di Programmazione 2",
+              "codice_materia": "96260"
+            },          {
+              "nome_materia" : "Metodi Matematici e Statistici",
+              "codice_materia": "91242"
+            },          {
+              "nome_materia" : "Sviluppo di Giochi Digitali",
+              "codice_materia": "96261"
+            },          {
+              "nome_materia" : "Tecniche di Programmazione Concorrente e Distribuita",
+              "codice_materia": "91244"
+            }
+          ]
+        }]
+      }
+    }
+  }
