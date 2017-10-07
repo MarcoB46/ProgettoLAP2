@@ -70,3 +70,56 @@ exports.sendNewPostNotification =
             })
             .catch(error=>{console.log('errore detailRef: ', error)})
         });
+
+exports.groupSubscriptionNotificationHandler=
+        functions.database.ref(`post/{course}/{subject}/g/{postKey}/buddyList`).onCreate((event)=>{
+            console.log(event);
+            const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
+            detailRef.once('value')
+                .then( snapshot=>{
+                    if(snapshot.val()){
+                        snapshot.val().forEach(function(anno){
+                            anno.materie.forEach(function(materia){
+                                if(event.params.subject === materia.codice_materia){
+                                    console.log("event.val di group subscription:: ",event.val())
+                                    return admin.messaging()
+                                        .sendToTopic(event.params.postKey, {
+                                            notification:{
+                                                title:'qualcosa',
+                                                sound:'default',
+                                                color:'#ff0000'
+                                            }
+                                        })
+                                }
+                            })
+                        })
+                    }
+                })
+                .catch( error => {console.log(error)})
+        });
+
+exports.groupUnsubscriptionNotificationHandler=
+        functions.database.ref(`post/{course}/{subject}/g/{postKey}/buddyList`).onDelete((event)=>{
+            const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
+            detailRef.once('value')
+                .then( snapshot=>{
+                    if(snapshot.val()){
+                        snapshot.val().forEach(function(anno){
+                            anno.materie.forEach(function(materia){
+                                if(event.params.subject === materia.codice_materia){
+                                    console.log("event.val di group unsubscription :: ",event.val())
+                                    return admin.messaging()
+                                        .sendToTopic(event.params.postKey, {
+                                            notification:{
+                                                title:'qualcosa',
+                                                sound:'default',
+                                                color:'#ff0000'
+                                            }
+                                        })
+                                }
+                            })
+                        })
+                    }
+                })
+                .catch( error => {console.log(error)})
+        });
