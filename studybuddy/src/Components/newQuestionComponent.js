@@ -52,7 +52,7 @@ export default class NewQuestionComponent extends Component {
                                     text:newText
                                 })
                             }}
-                            placeholder='Cosa vuoi chiedere ?'
+                            placeholder='Inserisci il testo del tuo avviso...'
                             placeholderTextColor='#2196F3'
                             selectionColor='#2196F3'
                             value={this.state.text}

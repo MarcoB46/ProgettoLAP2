@@ -1,6 +1,7 @@
 import * as actionType from '../Common/actionTypes';
 import {REHYDRATE} from 'redux-persist/constants';
 import {DEFAULT_AVATAR} from '../Common/const'
+
 const initialState = {
     user:{
         userName:'',
