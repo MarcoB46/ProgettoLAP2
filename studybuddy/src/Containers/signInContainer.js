@@ -8,7 +8,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=>{
     return{
-
         signIn:(user, callback)=>{dispatch(signIn(user, callback))}
     }
 }

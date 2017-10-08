@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import courseDetailsComponent from '../Components/courseDetailsComponent'
-import {} from '../Actions/usrActions';
 import {fetchCourseDetails} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
@@ -14,7 +13,6 @@ const mapDispatchToProps = (dispatch)=> {
         fetchCourseDetails:()=>{dispatch(fetchCourseDetails())}
     }
 }
-
 
 const CourseDetails = connect(mapStateToProps, mapDispatchToProps)(courseDetailsComponent)
 export default CourseDetails;

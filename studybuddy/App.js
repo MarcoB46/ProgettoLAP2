@@ -10,7 +10,7 @@ import GroupPage from './src/Containers/groupsPageContainer';
 import CourseDetails from './src/Containers/courseDetailsContainer';
 import {Spinner} from './src/Common/spinner';
 import {persistStore} from 'redux-persist';
-import {AsyncStorage, View, Text} from 'react-native';
+import {AsyncStorage} from 'react-native';
 import HeaderButtons from './src/Common/headerButtons';
 import NewQuestion from './src/Containers/newQuestionContainer';
 import ElementDetail from './src/Containers/elementDetailContainer';
@@ -61,7 +61,6 @@ const MiddleStackScreen=StackNavigator({
       title:'Nuovo Avviso :'
     })
   },
-  
   ElementDetail:{
     screen: ElementDetail, 
     navigationOptions:({navigation})=>({
@@ -78,7 +77,6 @@ const MiddleStackScreen=StackNavigator({
   }
 })
 
-//forse sostituire al posto di middlestackscreen in mainstack
 const DrawerNav=DrawerNavigator({
   Home:{
     screen:MiddleStackScreen, 
@@ -127,7 +125,7 @@ const MainStack = StackNavigator({
     })
   },
   MiddleStackScreen:{
-    screen:DrawerNav,  //old MiddleStackScreen
+    screen:DrawerNav, 
     navigationOptions:({navigation})=>({
       header:null,
       headerLeft: null,

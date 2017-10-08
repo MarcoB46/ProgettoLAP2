@@ -23,11 +23,10 @@ export const getCourses= ()=>{
 export const setCourseId=(CID)=>{
     return (dispatch)=>{
         dispatch({type:actionTypes.SET_SELECTED_COURSE, payload:CID});
-        //dispatch(fetchCourseDetails(CID));
     }
 }
 
-export const fetchCourseDetails=()=>{ //da modificare
+export const fetchCourseDetails=()=>{
     return (dispatch, getState) =>{
         dispatch({type:actionTypes.START_LOADING});
         var ref = firebase.database().ref(`corsi/${getState().databaseReducer.selectedCourse}`);
@@ -43,8 +42,8 @@ export const fetchCourseDetails=()=>{ //da modificare
 export const setSubject=(subjectId)=>{
     return(dispatch, getState)=>{
         dispatch({type:actionTypes.SET_SELECTED_SUBJECT, payload:subjectId})
-        console.log('setsubscribed ::::',getState().usrReducer.subscribedSubjects.indexOf(subjectId))
-        if(getState().usrReducer.subscribedSubjects.indexOf(subjectId)>=0){///CONTROLLARE , impostare databaseReducer in store come persistente 
+        //console.log('setsubscribed ::::',getState().usrReducer.subscribedSubjects.indexOf(subjectId))
+        if(getState().usrReducer.subscribedSubjects.indexOf(subjectId)>=0){
             dispatch({type:actionTypes.SET_SUBSCRIBED_BOOL, payload:true});
         }else{
             dispatch({type:actionTypes.SET_SUBSCRIBED_BOOL, payload:false});
@@ -110,7 +109,7 @@ export const sendPost = (toSend)=>{
 export const startGroupsFetch=() =>{
     return (dispatch,getState)=>{
         dispatch({type:actionTypes.START_LOADING});
-        var dbState = getState().databaseReducer; //funziona solo se si smonta il precedente componente
+        var dbState = getState().databaseReducer;
         var ref = firebase.database().ref(`post/${dbState.selectedCourse}/${dbState.selectedSubject}/g`);
         ref.on('value', (snapshot)=>{
             var groups=[];
@@ -194,7 +193,6 @@ export const leaveGroup=()=>{
             buddyList:[ ...buddyList.slice(0, buddyList.findIndex(element => element.uid===uid)), ...buddyList.slice(buddyList.findIndex(element => element.uid === uid)+1) ] 
         });
     }
-    //buddyList:[ ...buddyList.slice(0, buddyList.indexOf(uid)), ...buddyList.slice(buddyList.indexOf(uid)+1) ] 
 }
 
 export const startChatFetch=()=>{
@@ -211,7 +209,6 @@ export const startChatFetch=()=>{
                 dispatch({type:actionTypes.SET_MESSAGES, payload: messaggi});
             }
         });
-
         dispatch({type:actionTypes.SET_CHAT_REF, payload:ref});
         dispatch({type:actionTypes.STOP_LOADING});
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { GiftedChat , Send, Bubble} from 'react-native-gifted-chat';
 import {Icon, FormLabel} from 'react-native-elements';
-
+ 
 export default class ChatComponent extends Component {
     constructor(props){
         super(props);

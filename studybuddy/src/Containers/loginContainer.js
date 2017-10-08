@@ -4,7 +4,6 @@ import {attemptLogIn, checkLogIn} from '../Actions/usrActions';
 
 const mapStateToProps = (state) => ({
     
-
 })
 
 const mapDispatchToProps = (dispatch)=>{

@@ -3,10 +3,8 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { subscribe, unsubscribe } from '../Actions/usrActions';
-//import {} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
-//impostare il corso selezionato da qua 
     subscribed: state.usrReducer.subscribed
 })
 
@@ -41,7 +39,6 @@ render() {
         <View style={{flexDirection:'row', padding:5}}>
             <Icon
                 underlayColor='white'
-                //raised={false}
                 name='bell'
                 type='font-awesome'
                 reverse={this.state.reversedBell}
@@ -55,8 +52,8 @@ render() {
                     }else{
                         this.props.subscribe();
                             }     
-                    }} /> 
-                
+                    }} 
+            /> 
         </View>
     )
     }

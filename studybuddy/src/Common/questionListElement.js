@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image , FlatList, Modal} from 'react-native';
 import { Text as CustomText, Card, Badge, Avatar, Button, Icon} from 'react-native-elements';
 import { connect } from 'react-redux';
-import {setDetailParameters} from '../Actions/databaseActions'
-//import {} from '../Actions/databaseActions';
+import {setDetailParameters} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
     user:state.usrReducer.user, 

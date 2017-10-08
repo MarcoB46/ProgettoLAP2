@@ -18,6 +18,5 @@ const mapDispatchToProps = (dispatch)=> {
     }
 }
 
-
 const UserProfileInit = connect(mapStateToProps, mapDispatchToProps)(UserProfileInitComponent)
 export default UserProfileInit;

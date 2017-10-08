@@ -5,7 +5,6 @@ import {Spinner} from '../Common/spinner';
 import {Icon, Card} from 'react-native-elements';
 import { StackNavigator} from 'react-navigation';
 
-
 export default class questionPageComponent extends Component {
 
   constructor(props){

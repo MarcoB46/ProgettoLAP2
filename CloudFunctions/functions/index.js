@@ -1,13 +1,10 @@
 const functions = require('firebase-functions');
-
 const admin = require('firebase-admin');
-
 
 admin.initializeApp(functions.config().firebase);
 
 exports.sendNewPostNotification = 
     functions.database.ref(`post/{course}/{subject}/{type}/{postKey}`).onCreate((event) => {
-
     console.log(event);
         const detailRef = event.data.adminRef.root.child('corsi/'+event.params.course+'/dettaglio/');
         detailRef.once('value')
@@ -16,7 +13,6 @@ exports.sendNewPostNotification =
                     snapshot.val().forEach(function(anno) {
                         anno.materie.forEach(function(materia){
                             if(event.params.subject===materia.codice_materia){
-
                                 if(event.params.type==='g'){
                                     return admin.messaging()
                                     .sendToTopic(event.params.subject, {
@@ -48,7 +44,6 @@ exports.sendNewPostNotification =
                                     })
                                     .catch((error)=>{console.log(error)})
                                 }else if(event.params.type==='chat'){
-                                    console.log('event.data in chat::', event.data.val());
                                     return admin.messaging()
                                     .sendToTopic(event.params.subject, {
                                         notification:{
@@ -85,7 +80,7 @@ exports.groupSubscriptionNotificationHandler=
                                     return admin.messaging()
                                         .sendToTopic(event.params.postKey, {
                                             notification:{
-                                                title:'qualcosa',
+                                                title:'iscrizione ad un gruppo',
                                                 sound:'default',
                                                 color:'#ff0000'
                                             }
@@ -111,7 +106,7 @@ exports.groupUnsubscriptionNotificationHandler=
                                     return admin.messaging()
                                         .sendToTopic(event.params.postKey, {
                                             notification:{
-                                                title:'qualcosa',
+                                                title:'rimozione da un gruppo',
                                                 sound:'default',
                                                 color:'#ff0000'
                                             }

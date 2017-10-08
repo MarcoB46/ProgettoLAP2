@@ -21,7 +21,7 @@ export default class NewQuestionComponent extends Component {
     }
 
     submitHandler = ()=>{
-        if(this.state.text===''){ //filtro superficiale
+        if(this.state.text===''){
             Alert.alert('Attenzione', 'Non puoi inviare un post vuoto!')
         }else{
             var toSend={
@@ -38,10 +38,9 @@ export default class NewQuestionComponent extends Component {
     render() {
         return (
             <Card containerStyle={{flex:1,  marginBottom:'3%'}}>
-                
                 <ScrollView style={{height:'85%', flexDirection:'column'}}>
-                <View style={{backgroundColor:'#90CAF9', alignSelf:'auto' , borderRadius:25, borderWidth:1, borderColor:'#2196F3'}}>
-                    <FormInput 
+                    <View style={{backgroundColor:'#90CAF9', alignSelf:'auto' , borderRadius:25, borderWidth:1, borderColor:'#2196F3'}}>
+                        <FormInput 
                             style={{color:'black'}}
                             autoCorrect={true}
                             blurOnSubmit={false}
@@ -57,57 +56,54 @@ export default class NewQuestionComponent extends Component {
                             selectionColor='#2196F3'
                             value={this.state.text}
                         />
-                </View>
-                <View style={{ marginTop:'20%', flexDirection:'row'}}>
-                    <Avatar
-                        large
-                        rounded
-                        icon={{name: 'camera', type: 'font-awesome'}}
-                        onPress={() =>{
-                            this.props.takePhoto({target:'postPhoto'});
-                        }}
-                        activeOpacity={0.7}
-                        containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
-                    />   
-                    <FlatList
-                        data={this.props.postPhoto}
-                        renderItem={({item, index}) => {
-                            return(
+                    </View>
+                    <View style={{ marginTop:'20%', flexDirection:'row'}}>
+                        <Avatar
+                            large
+                            rounded
+                            icon={{name: 'camera', type: 'font-awesome'}}
+                            onPress={() =>{
+                                this.props.takePhoto({target:'postPhoto'});
+                            }}
+                            activeOpacity={0.7}
+                            containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
+                        />   
+                        <FlatList
+                            data={this.props.postPhoto}
+                            renderItem={({item, index}) => {
+                                return(
                                     <View style={{backgroundColor:'#C5CAE9'}}>
-
-                                    <Image source={{uri: item.source}} resizeMethod='auto' resizeMode='contain' style={{width: 300, height:300 , margin:10 }}/>
-                                    <Icon
-                                        underlayColor='white'
-                                        name='times'
-                                        type='font-awesome'
-                                        reverse
-                                        raised
-                                        size={15}
-                                        color='#F44336'
-                                        containerStyle={{position:'absolute', top: 5,left:5}}
-                                        onPress={()=>{ 
-                                            console.log('premuto')
-                                            this.props.removePhoto({target:'postPhoto',index:index}) }}
+                                        <Image source={{uri: item.source}} resizeMethod='auto' resizeMode='contain' style={{width: 300, height:300 , margin:10 }}/>
+                                        <Icon
+                                            underlayColor='white'
+                                            name='times'
+                                            type='font-awesome'
+                                            reverse
+                                            raised
+                                            size={15}
+                                            color='#F44336'
+                                            containerStyle={{position:'absolute', top: 5,left:5}}
+                                            onPress={()=>{ 
+                                                console.log('premuto')
+                                                this.props.removePhoto({target:'postPhoto',index:index}) }}
                                         /> 
                                     </View>
-                                )}}
-                        horizontal={true}
-                        keyExtractor={(item, index)=> index}
-                    />
-                </View>
-
+                                    )}}
+                            horizontal={true}
+                            keyExtractor={(item, index)=> index}
+                        />
+                    </View>
                 </ScrollView>
                 <Button
-                        containerViewStyle={{marginTop:'10%' }}
-                        small
-                        icon={{name: 'paper-plane', type: 'font-awesome'}}
-                        backgroundColor='#2196F3'
-                        title='Posta Avviso' 
-                        onPress={()=>{
-                            this.submitHandler();
-                        }}
-                        />
-
+                    containerViewStyle={{marginTop:'10%' }}
+                    small
+                    icon={{name: 'paper-plane', type: 'font-awesome'}}
+                    backgroundColor='#2196F3'
+                    title='Posta Avviso' 
+                    onPress={()=>{
+                        this.submitHandler();
+                    }}
+                />
             </Card>            
         )
     }

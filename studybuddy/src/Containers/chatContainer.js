@@ -16,6 +16,5 @@ const mapDispatchToProps =  (dispatch)=> {
     }
 }
 
-
 const Chat= connect(mapStateToProps, mapDispatchToProps)(ChatComponent)
 export default Chat;

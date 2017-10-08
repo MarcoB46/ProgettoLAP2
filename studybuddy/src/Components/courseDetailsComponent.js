@@ -67,5 +67,4 @@ componentWillMount = () => {
         </View>
     )
   }
-
 }

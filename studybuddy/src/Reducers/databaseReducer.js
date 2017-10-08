@@ -60,5 +60,4 @@ const databaseReducer = (state=initialState, action)=>{
             return state;
     }
 }
-
 export default databaseReducer;

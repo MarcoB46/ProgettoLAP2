@@ -26,12 +26,11 @@ export default class NewGroupComponent extends Component {
             targetDate: {date:moment().add(1,'h').format('MMMM Do YYYY, HH:mm') , millis: 0 },
             placeBool:false
         }
-        //this.submitHandler=this.submitHandler.bind(this);
         this.openSearchModal=this.openSearchModal.bind(this);
     }
 
     openSearchModal() {
-        RNGooglePlaces.openPlacePickerModal() //controllare questo :: https://github.com/tolu360/react-native-google-places
+        RNGooglePlaces.openPlacePickerModal()
         .then((place) => {
             this.setState({placeBool:true})
             console.log(place);
@@ -51,7 +50,7 @@ export default class NewGroupComponent extends Component {
     
 
     submitHandler = ()=>{
-        if(this.state.text==='' || !this.state.placeBool  ){ //filtro superficiale
+        if(this.state.text==='' || !this.state.placeBool  ){ 
             Alert.alert('Attenzione', 'Compila prima tutti i campi !')
         }else{
             var toSend={
@@ -77,44 +76,39 @@ export default class NewGroupComponent extends Component {
     }
 
     render() {
-        
         return (
-            <Card containerStyle={{flex:1,  marginBottom:'3%' }} wrapperStyle={{flex:1, justifyContent:'space-between'}} >
-                
-                {/* <ScrollView style={{height:'85%', flexDirection:'column', alignContent:'space-between'}}> */}
-                
-                            <View style={{backgroundColor:'#90CAF9', borderRadius:25, borderWidth:1, borderColor:'#2196F3'}}>
+            <Card containerStyle={{flex:1,  marginBottom:'3%' }} wrapperStyle={{flex:1, justifyContent:'space-between'}} >          
+                <View style={{backgroundColor:'#90CAF9', borderRadius:25, borderWidth:1, borderColor:'#2196F3'}}>
                     <FormInput 
-                            style={{color:'black'}}
-                            autoCorrect={true}
-                            blurOnSubmit={false}
-                            multiline={true}
-                            numberOfLines={5}
-                            onChangeText={(newText)=>{
-                                this.setState({
-                                    text:newText
-                                })
-                            }}
-                            placeholder='Inserisci una descrizione'
-                            placeholderTextColor='#2196F3'
-                            selectionColor='#2196F3'
-                            value={this.state.text}
-                        />
+                        style={{color:'black'}}
+                        autoCorrect={true}
+                        blurOnSubmit={false}
+                        multiline={true}
+                        numberOfLines={5}
+                        onChangeText={(newText)=>{
+                            this.setState({
+                                text:newText
+                            })
+                        }}
+                        placeholder='Inserisci una descrizione'
+                        placeholderTextColor='#2196F3'
+                        selectionColor='#2196F3'
+                        value={this.state.text}
+                    />
                 </View>
                 <View>
                     <Text style={{color:'#3D5AFE', margin:5}} > {this.state.place.placeName} </Text>
                     <Button
-                            containerViewStyle={{marginTop:'10%' }}
-                            small
-                            icon={{name: 'map', type: 'font-awesome'}}
-                            backgroundColor='#2196F3'
-                            title='Scegli il luogo di incontro ' 
-                            onPress={()=>{
-                                this.openSearchModal()
-                            }}
+                        containerViewStyle={{marginTop:'10%' }}
+                        small
+                        icon={{name: 'map', type: 'font-awesome'}}
+                        backgroundColor='#2196F3'
+                        title='Scegli il luogo di incontro ' 
+                        onPress={()=>{
+                            this.openSearchModal()
+                        }}
                     />
                 </View>
-                
                 <View>
                     <FormLabel> Quante persone possono partecipare ? </FormLabel>
                     <FormLabel> Attuale: {(this.state.numberOfPersons==10)? 'Nessun limite' : this.state.numberOfPersons} </FormLabel>
@@ -155,31 +149,26 @@ export default class NewGroupComponent extends Component {
                         
                         }}
                         onDateChange={(date) => {
-                            //dalla data a unix e viceversa 
                             if(moment(date, 'MMMM Do YYYY, HH:mm').isBefore(moment())) {
                                 alert('Non puoi creare incontri nel passato !')
                                 return
                             }
-
-                            console.log('date ::::: ',moment(date, 'MMMM Do YYYY, HH:mm').unix(), '   ', moment.unix(moment(date, 'MMMM Do YYYY, HH:mm').unix()).format("MMMM Do YYYY, HH:mm") )
-                            this.setState({targetDate: {date:date, millis:moment(date, 'MMMM Do YYYY, HH:mm').unix() }})}}
+                            this.setState({targetDate: {date:date, millis:moment(date, 'MMMM Do YYYY, HH:mm').unix() }})
+                        }}
                     />
 
                 </View>
-
-                {/* </ScrollView> */}
                 <Button
-                        containerViewStyle={{marginTop:'10%' }}
-                        small
-                        icon={{name: 'paper-plane', type: 'font-awesome'}}
-                        backgroundColor='#2196F3'
-                        title='Posta Invito' 
-                        onPress={()=>{
-                            this.submitHandler();
-                        }}
-                        />
+                    containerViewStyle={{marginTop:'10%' }}
+                    small
+                    icon={{name: 'paper-plane', type: 'font-awesome'}}
+                    backgroundColor='#2196F3'
+                    title='Posta Invito' 
+                    onPress={()=>{
+                        this.submitHandler();
+                    }}
+                />
             </Card>            
         )
     }
-
 }

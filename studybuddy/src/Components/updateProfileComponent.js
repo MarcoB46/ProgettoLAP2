@@ -1,7 +1,7 @@
 /**
  * NOTA IMPORTANTE::
  * questo componente è una pagina quasi  completamente uguale ad userProfileInit ,
- * il motivo della sua esistenza è dato dal fatto che non mi è permesso navigare tra due screen innestati in due elementi 
+ * il motivo della sua esistenza è dato dal fatto che non mi è permesso navigare tra due screen innestati in due elementi ( utilizzando la resetnavigation )
  * una soluzione sarebbe usare le action della navigate ( terzo parametro ), ma comunque non lo potrei utilizare dalla def della route
  * in App.js 
  */
@@ -51,8 +51,7 @@ export default class UpdateProfileComponent extends Component {
       this.props.setUserName(this.state.userName);
       this.props.setCourseId(this.state.selectedCourse);
       this.props.setEOI(true);
-      this.props.navigation.navigate('MiddleStackScreen'); //old MiddleStackScreen
-      //TODO, AGGIUNGERE NAVIGAZIONE ALLA NUOVA PAGINA E CARICAMENTO DEGLI ELEMENTI
+      this.props.navigation.navigate('MiddleStackScreen');
     }else{
       if(this.state.userName.replace(/\s/g, '')===''){ this.setState({errorLabelUserNameVisible:true});} else{ this.setState({errorLabelUserNameVisible:false}); }
       console.log(this.state.userName)
@@ -65,7 +64,6 @@ export default class UpdateProfileComponent extends Component {
     return (
       <View style={{justifyContent: 'space-around', flex:1}}>
         <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
-
         { this.props.user.photoURL && this.props.user.photoURL!== DEFAULT_AVATAR
             ?
             <Avatar
@@ -90,9 +88,7 @@ export default class UpdateProfileComponent extends Component {
             containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
           />    
         }
-
-        <View>
-          
+        <View> 
           <View>
             <FormLabel>Username</FormLabel>
             <FormInput
@@ -110,42 +106,34 @@ export default class UpdateProfileComponent extends Component {
           <View>
             <FormLabel>Seleziona il tuo corso di laurea</FormLabel>
               <Picker
-              selectedValue={this.state.selectedCourse}
-              onValueChange={(itemValue, itemIndex)=>{
-                  this.setState({
-                  selectedCourse:itemValue, 
-                  errorLabelPickerVisible:false
-                  })
-              }}
-              style={{margin:'4%'}}
-              >
-              {
-                this.state.corsi.map(element =>
-                  <Picker.Item label={element.corso} value={element.key} key={element.key}/>
-                )
-              }
+                selectedValue={this.state.selectedCourse}
+                onValueChange={(itemValue, itemIndex)=>{
+                    this.setState({
+                    selectedCourse:itemValue, 
+                    errorLabelPickerVisible:false
+                    })
+                }}
+                style={{margin:'4%'}}
+                >
+                {
+                  this.state.corsi.map(element =>
+                    <Picker.Item label={element.corso} value={element.key} key={element.key}/>
+                  )
+                }
               </Picker>
               <FormValidationMessage>{this.state.errorLabelPickerVisible ? "Per procedere seleziona prima un Corso":""}</FormValidationMessage>
           </View>
-
         </View>
-
         <Button
-            large
-            raised 
-            backgroundColor='#FF9800'
-            icon={{name: 'check', type: 'font-awesome'}}
-            onPress={()=>{
-              {/* firebase.auth().signOut()
-              .then(() => {
-                console.log('User signed out successfully');
-                this.resetNavigation('LogIn');
-              })
-              .catch((error)=>{console.log(error)}); */}
-              this.submitHandler();
-            }}
-            title='Aggiorna' />
-
+          large
+          raised 
+          backgroundColor='#FF9800'
+          icon={{name: 'check', type: 'font-awesome'}}
+          onPress={()=>{
+            this.submitHandler();
+          }}
+          title='Aggiorna' 
+        />
       </View>
     )
   }

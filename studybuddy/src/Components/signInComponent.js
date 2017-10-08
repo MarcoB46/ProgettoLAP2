@@ -23,8 +23,6 @@ export default class signInComponent extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
- 
-
   render() {
     return (
       <View  style={{justifyContent:'center', flex:1, justifyContent: 'space-around', backgroundColor:'#1A237E'}}>
@@ -46,7 +44,6 @@ export default class signInComponent extends Component {
               <View>
                 <FormLabel>Mail</FormLabel>
                 <FormInput 
-                  //containerStyle={{ width:'68%'}}
                   onChangeText={(text)=>{
                     this.setState({
                       mail:text
@@ -57,7 +54,6 @@ export default class signInComponent extends Component {
                 />
               </View>
           </View>
-
           <View style={{flexDirection:'row'}}>
             <Icon
               containerStyle={{alignSelf:'flex-end'}}
@@ -68,30 +64,30 @@ export default class signInComponent extends Component {
               underlayColor='#3F51B5ff'
               reverse
             />
-              <View>
-                <FormLabel>Password</FormLabel>
-                <FormInput 
-                  onChangeText={(text)=>{
-                    this.setState({
-                      password:text
-                    })
-                  }}
-                  inputStyle={{color:'#03A9F4'}}
-                />
-              </View>
+            <View>
+              <FormLabel>Password</FormLabel>
+              <FormInput 
+                onChangeText={(text)=>{
+                  this.setState({
+                    password:text
+                  })
+                }}
+                inputStyle={{color:'#03A9F4'}}
+              />
             </View>
-            <Button
-              title='Registrati'
-              backgroundColor='#03A9F4'
-              onPress= {()=>{
-                if(this.state.mail!=='' && this.state.password!==''){
-                  var user ={mail:this.state.mail,password: this.state.password}
-                  this.props.signIn(user, this.resetNavigation)
-                }
-              }}
-              containerViewStyle={{marginTop:'5%', borderRadius:30}}
-              borderRadius={30}
-          ></Button>
+            </View>
+              <Button
+                title='Registrati'
+                backgroundColor='#03A9F4'
+                onPress= {()=>{
+                  if(this.state.mail!=='' && this.state.password!==''){
+                    var user ={mail:this.state.mail,password: this.state.password}
+                    this.props.signIn(user, this.resetNavigation)
+                  }
+                }}
+                containerViewStyle={{marginTop:'5%', borderRadius:30}}
+                borderRadius={30}
+              />
         </Card> 
       </View>
     )

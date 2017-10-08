@@ -55,16 +55,13 @@ export const attemptLogIn = (user, callback)=>{
     return (dispatch) =>{
         dispatch({type:actionTypes.START_LOADING});
         firebase.auth().signInWithEmailAndPassword(user.mail, user.password)
-            // .then((user)=>{
-    
-            // })
             .catch((error)=>{
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 if (errorCode === 'auth/wrong-password') {
                     alert('Password Errata.');
                 } else if (errorCode === 'auth/user-disabled') {
-                    alert('Account Sospeso. '); //inutile
+                    alert('Account Sospeso. ');
                 }else if (errorCode === 'auth/user-not-found') {
                     alert('Utente non trovato.');
                 } else if (errorCode === 'auth/invalid-email') {
@@ -126,7 +123,6 @@ export const takePhoto =(param)=>{
          
         ImagePicker.showImagePicker(options, (response)=>{
             if(response.didCancel){
-                //utente ha cancellato la selezione, non fare niente
                 console.log('selezione cancellata');
             }else if(response.error){
                 console.log('errore da updateprofileavatar:: ', error);
@@ -199,7 +195,6 @@ export const unsubscribe =(target, param=null) =>{
 export const logOut = (callback, target) =>{
     return(dispatch)=>{
         dispatch({type:'VOID'});
-        
         firebase.auth().signOut()
         .then(() => {
           console.log('logOut riuscito');

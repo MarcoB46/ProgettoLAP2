@@ -18,7 +18,6 @@ export default class groupsPageComponent extends Component {
   componentWillUnmount = () => {
     this.props.stopGroupsFetch()
   }
-  
 
   render() {
     if(this.props.isLoading){
@@ -60,20 +59,19 @@ export default class groupsPageComponent extends Component {
           keyExtractor={(item, index)=> index}
         />
         <Icon
-                underlayColor='white'
-                name='plus'
-                type='font-awesome'
-                reverse
-                raised
-                size={35}
-                color='#F44336'
-                containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
-                onPress={() => {
-                  navigate('NewGroup');
-                }} 
-                /> 
+          underlayColor='white'
+          name='plus'
+          type='font-awesome'
+          reverse
+          raised
+          size={35}
+          color='#F44336'
+          containerStyle={{position:'absolute', bottom:0, right:0, margin:10 }}
+          onPress={() => {
+            navigate('NewGroup');
+          }} 
+        /> 
       </View>
     )
   }
-
 }

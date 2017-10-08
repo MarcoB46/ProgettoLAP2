@@ -43,11 +43,13 @@ export default class UserProfileInitComponent extends Component {
       this.props.setUserName(this.state.userName);
       this.props.setCourseId(this.state.selectedCourse);
       this.props.setEOI(true);
-      this.resetNavigation('MiddleStackScreen'); //old MiddleStackScreen
-      //TODO, AGGIUNGERE NAVIGAZIONE ALLA NUOVA PAGINA E CARICAMENTO DEGLI ELEMENTI
+      this.resetNavigation('MiddleStackScreen'); 
     }else{
-      if(this.state.userName.replace(/\s/g, '')===''){ this.setState({errorLabelUserNameVisible:true});} else{ this.setState({errorLabelUserNameVisible:false}); }
-      console.log(this.state.userName)
+      if(this.state.userName.replace(/\s/g, '')===''){ 
+        this.setState({errorLabelUserNameVisible:true});
+      } else{
+         this.setState({errorLabelUserNameVisible:false}); 
+        }
       if(this.state.selectedCourse === 'VOID') this.setState({errorLabelPickerVisible:true});
     }
   }
@@ -57,7 +59,6 @@ export default class UserProfileInitComponent extends Component {
     return (
       <View style={{justifyContent: 'space-around', flex:1}}>
         <CustomText h3 style={{alignSelf:'center'}}>Personalizza il tuo account</CustomText>
-
         { this.props.user.photoURL
             ?
             <Avatar
@@ -82,13 +83,10 @@ export default class UserProfileInitComponent extends Component {
             containerStyle={{alignSelf:'center', backgroundColor:'#03A9F4'}}
           />    
         }
-
         <View>
-          
           <View>
             <FormLabel>Username</FormLabel>
             <FormInput
-
               onChangeText={(text)=>{
                 this.setState({
                   userName:text,
@@ -98,7 +96,6 @@ export default class UserProfileInitComponent extends Component {
             />
             <FormValidationMessage>{this.state.errorLabelUserNameVisible ? "Per procedere inserisci prima un Username":""}</FormValidationMessage>
           </View>
-         
           <View>
             <FormLabel>Seleziona il tuo corso di laurea</FormLabel>
               <Picker
@@ -119,25 +116,17 @@ export default class UserProfileInitComponent extends Component {
               </Picker>
               <FormValidationMessage>{this.state.errorLabelPickerVisible ? "Per procedere seleziona prima un Corso":""}</FormValidationMessage>
           </View>
-
         </View>
-
         <Button
-            large
-            raised 
-            backgroundColor='#FF9800'
-            icon={{name: 'check', type: 'font-awesome'}}
-            onPress={()=>{
-              {/* firebase.auth().signOut()
-              .then(() => {
-                console.log('User signed out successfully');
-                this.resetNavigation('LogIn');
-              })
-              .catch((error)=>{console.log(error)}); */}
-              this.submitHandler();
-            }}
-            title='Fatto' />
-
+          large
+          raised 
+          backgroundColor='#FF9800'
+          icon={{name: 'check', type: 'font-awesome'}}
+          onPress={()=>{
+            this.submitHandler();
+          }}
+          title='Fatto' 
+        />
       </View>
     )
   }

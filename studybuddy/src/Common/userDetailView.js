@@ -34,9 +34,6 @@ class UserDetailViewComponent extends Component {
     }
 
     render() {
-        console.log('====================================');
-        console.log('user dails props', this.props);
-        console.log('====================================');
         return (
             <View style={{flex:1 , justifyContent:'space-between'}}>
                 <View style={{ backgroundColor:'#3F51B5', flexDirection:'row'}}>

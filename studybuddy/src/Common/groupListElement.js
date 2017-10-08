@@ -3,7 +3,6 @@ import { Text, View, TouchableHighlight, Image , FlatList, Modal} from 'react-na
 import { Text as CustomText, Card, Badge, Avatar, Button, Icon} from 'react-native-elements';
 import { connect } from 'react-redux';
 import {setDetailParameters} from '../Actions/databaseActions'
-//import {} from '../Actions/databaseActions';
 
 const mapStateToProps = (state) => ({
     user:state.usrReducer.user, 
@@ -30,16 +29,11 @@ class GroupListElementComponent extends Component {
     this.setState({modalImageVisible: visible, detailURI:uri });
   }
 
-  
-
   render() {
     return (
         <View style={{marginBottom:'4%'}}>
             <Card>
                 <TouchableHighlight onPress={ ()=> {
-                    console.log('====================================');
-                    console.log('elemento premuto ::: ', this.props);
-                    console.log('====================================');
                     this.props.setDetailParameters({ 
                         text:this.props.text, 
                         avatar:this.props.avatar, author:this.props.author, 
@@ -71,7 +65,7 @@ class GroupListElementComponent extends Component {
                                 borderBottomColor: 'black',
                                 borderBottomWidth: 1,
                             }}
-                            />
+                        />
                         <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:20}}>
                             <Text ellipsizeMode='tail' numberOfLines={1} style={{ flex:1}} > 
                                 {this.props.placeName} 
@@ -81,8 +75,6 @@ class GroupListElementComponent extends Component {
                             {this.props.targetDate.date}
                             </Text>
                         </View>
-
-
                     </View>
                     
                 </TouchableHighlight>            

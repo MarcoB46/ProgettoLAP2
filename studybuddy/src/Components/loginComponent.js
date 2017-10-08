@@ -13,7 +13,7 @@ export default class componentName extends Component {
     this.resetNavigation=this.resetNavigation.bind(this);
   }
   componentWillMount = () => {
-    this.props.checkLogIn(this.resetNavigation) //momentaneo
+    this.props.checkLogIn(this.resetNavigation)
   }
   resetNavigation= (targetRoute) => {
     const resetAction = NavigationActions.reset({
@@ -43,7 +43,6 @@ export default class componentName extends Component {
               <View>
                 <FormLabel>Mail</FormLabel>
                 <FormInput 
-                  //containerStyle={{ width:'68%'}}
                   onChangeText={(text)=>{
                     this.setState({
                       mail:text
@@ -55,7 +54,6 @@ export default class componentName extends Component {
                 />
               </View>
           </View>
-
           <View style={{flexDirection:'row'}}>
             <Icon
               containerStyle={{alignSelf:'flex-end'}}
@@ -69,7 +67,6 @@ export default class componentName extends Component {
               <View>
                 <FormLabel>Password</FormLabel>
                 <FormInput 
-                  //containerStyle={{marginRight:50, width:'68%'}}
                   onChangeText={(text)=>{
                     this.setState({
                       password:text
@@ -88,16 +85,10 @@ export default class componentName extends Component {
                 var user ={mail:this.state.mail,password: this.state.password}
                 this.props.attemptLogIn(user, this.resetNavigation)
               }
-
             }}
             containerViewStyle={{marginTop:'5%', borderRadius:30}}
             borderRadius={30}
           ></Button>
-          {/* <SocialIcon
-            title='Sign In With Facebook'
-            button
-            type='facebook'
-          />*/}
         </Card> 
         <Button
           containerViewStyle={{ borderRadius:30}}

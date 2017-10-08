@@ -18,6 +18,5 @@ const mapDispatchToProps = (dispatch)=> {
     }
 }
 
-
 const UpdateProfile = connect(mapStateToProps, mapDispatchToProps)(UpdateProfileComponent)
 export default UpdateProfile;
